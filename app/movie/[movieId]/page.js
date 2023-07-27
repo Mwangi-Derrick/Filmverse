@@ -21,11 +21,12 @@ function page({ params }) {
   }, [])
   let hours = "00"
   let minutes = "00"
-  if (movieInfo) {
+  if (movieInfo ) {
      hours = Math.floor((movieInfo.runtime) / 60).toString()
      minutes = (movieInfo.runtime % 60).toString()
   }
-const runtime = ` ${hours}h${minutes}min`
+  console.log(movieInfo)
+const runtime = ` ${hours}h ${minutes}min`
   return (<>
     {movieInfo &&
       <div style={{
@@ -49,16 +50,18 @@ const runtime = ` ${hours}h${minutes}min`
             my-[20px] rounded-md
            bg-red-500'>Watch Trailer</button></Link>
           </div>
-          <div className='flex flex-col lg:w-[60%] sm:max-lg:items-start sm:max-lg:w-full'>
+          <div className='flex flex-col lg:w-[65%] sm:max-lg:items-start sm:max-lg:w-full'>
             <div className='flex items-start flex-col pb-5'>
               <h1 className='font-bold lg:text-4xl sm:max-lg:text-3xl'>{movieInfo.title}</h1>
               <div className='flex w-full h-fit mt-4 text-xl sm:max-lg:text-sm ' >
-                <p className='pr-3 w-[130px]'>{movieInfo.release_date}</p>
-                <span className='flex flex-wrap'>
-                  <p className='pr-1'>{runtime}</p>
+                <p className='pr-2 w-fit'>{movieInfo.release_date}</p>
+                <span className='flex flex-wrap items-center'>
+                  <p className='pr-1 flex items-center'>
+                    <p className='px-1'>|</p>{runtime}</p>
                 {movieInfo?.genres.map((genre,index) => (
-                  <p key={genre.id} className='pr-1'>
-                    {index > 0 &&  '|' + ' '}
+                  <p key={genre.id} className='px-1 flex items-center'>
+                    {index === 0 && '|'+' ' }
+                    {index > 0 &&  ',' +' '}
                     {`${genre.name}`}</p>
                 ))    
                   }
