@@ -19,7 +19,13 @@ function page({ params }) {
     }
     fetchMovieDetails();
   }, [])
-
+  let hours = "00"
+  let minutes = "00"
+  if (movieInfo) {
+     hours = Math.floor((movieInfo.runtime) / 60).toString()
+     minutes = (movieInfo.runtime % 60).toString()
+  }
+const runtime = ` ${hours}h${minutes}min`
   return (<>
     {movieInfo &&
       <div style={{
@@ -49,12 +55,13 @@ function page({ params }) {
               <div className='flex w-full h-fit mt-4 text-xl sm:max-lg:text-sm ' >
                 <p className='pr-3 w-[130px]'>{movieInfo.release_date}</p>
                 <span className='flex flex-wrap'>
+                  <p className='pr-1'>{runtime}</p>
                 {movieInfo?.genres.map((genre,index) => (
                   <p key={genre.id} className='pr-1'>
                     {index > 0 &&  '|' + ' '}
                     {`${genre.name}`}</p>
                 ))    
-                }
+                  }
                 </span>
               </div>
             </div>
