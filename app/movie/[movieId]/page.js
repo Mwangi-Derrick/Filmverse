@@ -32,7 +32,7 @@ const runtime = ` ${hours}h ${minutes}min`
       <div style={{
         backgroundImage: ` linear-gradient(to top, rgba(0, 0, 0, 1),
         rgba(0,0,0,0.9),rgba(0,0,0,0.8), rgba(0, 0, 0, 1)), 
-         url(${img_Url}${movieInfo.poster_path})`
+         url(${img_Url}${movieInfo.backdrop_path})`
       }}
         className=' flex items-start  text-white h-full w-full
        bg-no-repeat bg-cover  aspect-square bg-center justify-center 
