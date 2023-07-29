@@ -4,7 +4,7 @@ import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/solid';
 import Image from 'next/image';
 import Link from 'next/link';
 
-function MovieCarousel({ data,title }) {
+function MovieRecommendations({ data,title }) {
   const baseImageUrl = 'https://image.tmdb.org/t/p/w500/';
   const carouselRef = useRef(null);
   const [scrollButton, setScrollBtn] = useState('none');
@@ -73,7 +73,7 @@ function MovieCarousel({ data,title }) {
         className='flex flex-row w-[100%] h-fit lg:overflow-x-hidden overflow-y-hidden
         px-[5px] items-start justify-start snap-x snap-mandatory' ref={carouselRef}>
         {data.map((item) => (
-          <Link href={`movie/${item.id}?id=${item.id}`} as={`movie/${item.id}-${item.title}`}
+          <Link href={`movie/${item.id}?id=${item.id}`} as={`/${item.id}-${item.title}`}
             key={item.id}
             className='mx-[5px] flex flex-col snap-end items-center justify-start h-fit
            flex-grow-0 flex-shrink-0 lg:basis-[200px] sm:max-lg:basis-[150px]'> 
@@ -89,4 +89,4 @@ function MovieCarousel({ data,title }) {
   );
 }
 
-export default MovieCarousel;
+export default MovieRecommendations;

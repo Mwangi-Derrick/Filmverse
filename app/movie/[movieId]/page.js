@@ -1,5 +1,5 @@
 "use client"
-import MovieCarousel from "@/components/MovieCarousel";
+import MovieRecommendations from "@/components/MovieRecommendations";
 import { PlayCircleIcon } from "@heroicons/react/24/solid";
 import Image from 'next/image';
 import Link from 'next/link';
@@ -147,7 +147,7 @@ function page({ params }) {
           </article>
         </div>
       </section>
-     {movieInfo.recommendations.results && <MovieCarousel data={movieInfo.recommendations.results} title={`movies like${movieInfo.title}`} />}
+     {movieInfo.recommendations.results && <MovieRecommendations data={movieInfo.recommendations.results} title={`movies like${movieInfo.title}`} />}
       </div>
   )
   )
