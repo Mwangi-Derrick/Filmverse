@@ -53,27 +53,28 @@ function MovieCarousel({ data,title }) {
   return (
     <div className='text-white w-[90%] h-fit mx-auto flex flex-col relative group
     my-5'>
-      <div className='pl-[10px] py-2 h-30px lg:text-2xl
-       font-bold uppercase'>{title}</div>
+      <div className='pl-[10px] py-2 h-30px lg:text-3xl
+       font-medium capitalize'>{title}</div>
       {(scrollButton === 'left' || scrollButton === 'both' ) && (
-        <button onClick={scrollLeft} className='w-12 h-12 bg-white
+        <button onClick={scrollLeft} className='w-[60px] h-[60px] bg-white
           items-center sm:hidden lg:group-hover:flex
-         justify-center absolute rounded-[50%] top-[45%] left-[-30px] cursor-pointer'>
-          <ChevronLeftIcon className='w-6 h-6 font-extrabold text-black' />
+         justify-center absolute rounded-[50%] top-[45%] left-[-30px]
+         cursor-pointer '>
+          <ChevronLeftIcon className='w-7 h-7 font-extrabold  text-black' />
         </button>
       )}
       {(scrollButton === 'right' || scrollButton === 'both') && (
-        <button onClick={scrollRight} className='w-12 h-12 bg-white
+        <button onClick={scrollRight} className='w-[60px] h-[60px] bg-white
         absolute  top-[45%] right-[-30px] sm:hidden lg:group-hover:flex 
-         items-center rounded-[50%] justify-center cursor-pointer'>
-          <ChevronRightIcon className='w-6 h-6 font-extrabold text-black' />
+         items-center rounded-[50%] justify-center cursor-pointer '>
+          <ChevronRightIcon className='w-7 h-7 font-extrabold  text-black' />
         </button>
       )}
       <div 
         className='flex flex-row w-[100%] h-fit lg:overflow-x-hidden overflow-y-hidden
         px-[5px] items-start justify-start snap-x snap-mandatory' ref={carouselRef}>
         {data.map((item) => (
-          <Link href={`movie/${item.id}?id=${item.id}`} as={`movie/${item.id}-${item.title}`}
+          <Link href={`/movie/${item.id}?id=${item.id}`} as={`/movie/${item.id}-${item.title}`}
             key={item.id}
             className='mx-[5px] flex flex-col snap-end items-center justify-start h-fit
            flex-grow-0 flex-shrink-0 lg:basis-[200px] sm:max-lg:basis-[150px]'> 

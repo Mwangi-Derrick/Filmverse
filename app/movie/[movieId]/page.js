@@ -1,5 +1,5 @@
 "use client"
-import MovieRecommendations from "@/components/MovieRecommendations";
+import MovieCarousel from "@/components/MovieCarousel";
 import { PlayCircleIcon } from "@heroicons/react/24/solid";
 import Image from 'next/image';
 import Link from 'next/link';
@@ -25,15 +25,19 @@ function page({ params }) {
   let minutes = "00"
   let cast = undefined;
   let directors = undefined;
+
   if (movieInfo) {
     hours = Math.floor((movieInfo.runtime) / 60).toString()
     minutes = (movieInfo.runtime % 60).toString()
     cast = movieInfo.credits.cast
     directors = movieInfo?.credits?.crew.
-      filter((person) => person.known_for_department === "Directing").splice(0,5)
+      filter((person) => person.known_for_department === "Directing").splice(0, 5)
+    //remove any duplicate names that may arise using the javaScript Set object
+    directors = [...new Set(directors.map((person) => person.name))]
+    console.log(directors)
   }
   console.log(movieInfo)
-  const runtime = ` ${hours}h ${minutes}min`
+  const runtime = ` ${hours}hr ${minutes}min`
   return (movieInfo && (
     <div 
     style={{
@@ -102,10 +106,10 @@ function page({ params }) {
                 }
               </ul>
               <ul className='ml-5'>
-                <p className='text-base font-semibold'>{ directors?.length > 1 ? "Directors":"Director"}</p>
+               { directors.length > 0 && <p className='text-base font-semibold'>{ directors?.length > 1 ? "Directors":"Director"}</p>}
                 {
                   directors?.map((person) => (
-                    <li key={person.id} >{person.name }</li>
+                    <li key={person} >{person}</li>
                   ))
                 }
               </ul>
@@ -147,7 +151,8 @@ function page({ params }) {
           </article>
         </div>
       </section>
-     {movieInfo.recommendations.results && <MovieRecommendations data={movieInfo.recommendations.results} title={`movies like${movieInfo.title}`} />}
+      {movieInfo.recommendations.results.length>0 &&
+        <MovieCarousel data={movieInfo.recommendations.results} title={`movies like ${movieInfo.title}`} />}
       </div>
   )
   )
