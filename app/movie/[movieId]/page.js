@@ -1,8 +1,8 @@
 "use client"
 import MovieCarousel from "@/components/MovieCarousel";
+import TrailerIframe from "@/components/TrailerIframe";
 import { PlayCircleIcon } from "@heroicons/react/24/solid";
 import Image from 'next/image';
-import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 function page({ params }) {
   const movieId = params.movieId
@@ -25,7 +25,7 @@ function page({ params }) {
   let minutes = "00"
   let cast = undefined;
   let directors = undefined;
-
+  let Trailer = undefined;
   if (movieInfo) {
     hours = Math.floor((movieInfo.runtime) / 60).toString()
     minutes = (movieInfo.runtime % 60).toString()
@@ -35,9 +35,21 @@ function page({ params }) {
     //remove any duplicate names that may arise using the javaScript Set object
     directors = [...new Set(directors.map((person) => person.name))]
     console.log(directors)
+    Trailer = movieInfo?.videos?.results.filter((video)=>video.type === "Trailer").splice(0,1)
+    console.log(Trailer)
   }
   console.log(movieInfo)
-  const runtime = ` ${hours}hr ${minutes}min`
+  const runtime = `${hours}hr ${minutes}min`
+  /*add a usestate hook to handle the trailer 
+  view functionality whenever a user clicks the watch trailer button*/
+  const [YTtrailer, setTrailer] = useState(false);
+  //add an event handler function to set the trailer usestate to true
+  const watchTrailer = () => {
+    setTrailer(true)
+  }
+  const closeTrailer = () => {
+    setTrailer(false)
+  }
   return (movieInfo && (
     <div 
     style={{
@@ -46,7 +58,7 @@ function page({ params }) {
          url(${img_Url}${movieInfo.backdrop_path})`
     }}
       className=' flex  items-center  text-white h-full w-full flex-col
-       justify-start bg-no-repeat bg-cover  aspect-square bg-center
+       justify-start bg-no-repeat bg-cover  aspect-square bg-center 
         '>
       
       <section className='flex lg:flex-row w-[90%] h-fit sm:max-lg:items-center
@@ -55,12 +67,12 @@ function page({ params }) {
           <Image src={`${img_Url}${movieInfo.poster_path}`}
             width={300} height={90} alt=''
             className='w-full lg:h-[400px] sm:max-md:h-[300px] rounded-md md:max-lg:h-[350px]' />
-          <Link href={`/${movieId}#play=${movieInfo.videos?.results[0]?.key}`}>
-            <button className='w-full h-[50px] hover:bg-neutral-900 text-neutral-900
+            <button onClick={watchTrailer}
+              className='w-full h-[50px] hover:bg-neutral-900 text-neutral-900
               text-lg font-semibold flex items-center justify-center
             hover:text-red-500 transition-all duration-700
             my-[20px] rounded-md
-           bg-red-500'><PlayCircleIcon className="h-5 w-5 mx-1"/> Play Trailer</button></Link>
+           bg-red-500'><PlayCircleIcon className="h-5 w-5 mx-1"/> Play Trailer</button>
         </div>
         <div className='flex flex-col lg:w-[70%] sm:max-lg:items-start sm:max-lg:w-full'>
           <div className='flex items-start flex-col pb-5'>
@@ -124,19 +136,19 @@ function page({ params }) {
                 <ul>
                 <p className='text-base font-semibold'>Production Companies</p>
                   {movieInfo?.production_companies.map((company) => (
-                    <li>{company.name}</li>
+                    <li key={company.name}>{company.name}</li>
                   )
                   )}
                 </ul>
                 <ul className="mt-2">
                 <p className='text-base font-semibold'>Production Countries</p>
                   {movieInfo?.production_countries.map((country) => (
-                    <li>{ country.name}</li>
+                    <li key={country.name}>{ country.name}</li>
                 ))}
                 </ul>
               </div>
               <div className="flex flex-col">
-            <span className=' w-full h-fit lg:text-base sm:max-lg:text-sm font-bold
+             <span className=' w-full h-fit lg:text-base sm:max-lg:text-sm font-bold
                items-center 
                flex justify start'>
               <p className='pb-1 border-b-[3px] border-b-red-500 border-solid'>LANGUAGES</p>
@@ -150,9 +162,10 @@ function page({ params }) {
             </section>
           </article>
         </div>
-      </section>
+      </section>  
       {movieInfo.recommendations.results.length>0 &&
-        <MovieCarousel data={movieInfo.recommendations.results} title={`movies like ${movieInfo.title}`} />}
+        <MovieCarousel data={movieInfo.recommendations.results} title={`movies like ${movieInfo.title}`} />} 
+      {Trailer.length>0 && (<TrailerIframe TrailerId={Trailer[0].key} onClose={closeTrailer} YTtrailer={YTtrailer} />)}
       </div>
   )
   )
