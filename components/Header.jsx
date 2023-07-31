@@ -8,7 +8,7 @@ import { MagnifyingGlassIcon, XMarkIcon,Bars3Icon } from "@heroicons/react/24/so
 function Header() {
   return (
     <header
-      className="w-screen h-[60px] bg-neutral-900 z-[999]
+      className="w-screen h-[60px] bg-neutral-900 z-[99]
      flex items-center justify-start fixed top-0 
       " >
       <Navbar />
