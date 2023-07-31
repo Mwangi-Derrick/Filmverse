@@ -25,7 +25,10 @@ function page({ params }) {
   let minutes = "00"
   let cast = undefined;
   let directors = undefined;
-  let Trailer = undefined;
+  let Trailer;
+  let initialDateFormat;
+  let reversedDate;
+  let dateParts;
   if (movieInfo) {
     hours = Math.floor((movieInfo.runtime) / 60).toString()
     minutes = (movieInfo.runtime % 60).toString()
@@ -34,9 +37,11 @@ function page({ params }) {
       filter((person) => person.known_for_department === "Directing").splice(0, 5)
     //remove any duplicate names that may arise using the javaScript Set object
     directors = [...new Set(directors.map((person) => person.name))]
-    console.log(directors)
-    Trailer = movieInfo?.videos?.results.filter((video)=>video.type === "Trailer").splice(0,1)
-    console.log(Trailer)
+    Trailer = movieInfo?.videos?.results.filter((video) => video.type === "Trailer").splice(0, 1)
+    initialDateFormat = movieInfo?.release_date.replace(/-/g, "/");
+    dateParts = initialDateFormat.split('/');
+    console.log(typeof dateParts);
+    reversedDate = `${dateParts[1]}/${dateParts[2]}/${dateParts[0]}`
   }
   console.log(movieInfo)
   const runtime = `${hours}hr ${minutes}min`
@@ -78,14 +83,14 @@ function page({ params }) {
           <div className='flex items-start flex-col pb-5'>
             <h1 className='font-bold lg:text-4xl sm:max-lg:text-3xl'>{movieInfo.title}</h1>
             <div className='flex w-full h-fit mt-4 text-xl sm:max-lg:text-sm ' >
-              <p className='pr-2 lg:w-fit sm:max-lg:w-[80px] flex items-start'>{movieInfo.release_date}</p>
+              <p className='pr-2 lg:w-fit sm:max-lg:w-[80px] flex items-start'>{reversedDate}</p>
               <span className='flex flex-wrap items-center'>
                 <p className='pr-1 flex items-center'>
                   <p className='pr-2'>|</p>{runtime}</p>
                 {movieInfo?.genres.map((genre, index) => (
-                  <p key={genre.id} className='px-1 flex items-center'>
+                  <p key={genre.id} className=' flex items-center'>
                     {index === 0 && '|' + ' '}
-                    {index > 0 && ',' + ' '}
+                    {index > 0 && ','}
                     {`${genre.name}`}</p>
                 ))
                 }
@@ -113,7 +118,8 @@ function page({ params }) {
                 {
                   cast?.splice(0, 5).map((actor) =>
                   (
-                    <li key={actor.id}>{actor.name}</li>
+                    <li className="sm:max-lg:text-[13px] lg:text-[15px]"
+                      key={actor.id}>{actor.name}</li>
                     ))
                 }
               </ul>
@@ -121,7 +127,8 @@ function page({ params }) {
                { directors.length > 0 && <p className='text-base font-semibold'>{ directors?.length > 1 ? "Directors":"Director"}</p>}
                 {
                   directors?.map((person) => (
-                    <li key={person} >{person}</li>
+                    <li className="sm:max-lg:text-[13px] lg:text-[15px] "
+                      key={person} >{person}</li>
                   ))
                 }
               </ul>
@@ -136,14 +143,16 @@ function page({ params }) {
                 <ul>
                 <p className='text-base font-semibold'>Production Companies</p>
                   {movieInfo?.production_companies.map((company) => (
-                    <li key={company.name}>{company.name}</li>
+                    <li className="sm:max-lg:text-[13px] lg:text-[15px]"
+                      key={company.name}>{company.name}</li>
                   )
                   )}
                 </ul>
                 <ul className="mt-2">
                 <p className='text-base font-semibold'>Production Countries</p>
                   {movieInfo?.production_countries.map((country) => (
-                    <li key={country.name}>{ country.name}</li>
+                    <li className="sm:max-lg:text-[13px] lg:text-[15px]"
+                      key={country.name}>{country.name}</li>
                 ))}
                 </ul>
               </div>
@@ -155,7 +164,8 @@ function page({ params }) {
                 </span>
                 <ul>
                   {movieInfo?.spoken_languages.map((language) => (
-                    <li>{ language.english_name}</li>
+                    <li className="sm:max-lg:text-[13px] lg:text-[15px]"
+                      key={language.english_name}>{language.english_name}</li>
                 ))}
                 </ul>
               </div>
