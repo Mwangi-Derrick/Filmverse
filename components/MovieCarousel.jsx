@@ -55,7 +55,9 @@ function MovieCarousel({ data,title }) {
     my-5'>
       <div className='pl-[10px] py-2 h-30px lg:text-3xl
        font-medium capitalize'>{title}</div>
-      {(scrollButton === 'left' || scrollButton === 'both' ) && (
+      {/*conditionally render the scrollbuttons based on the scrollPositon 
+      and the number of  items in the scroll container*/}
+      {((scrollButton === 'left' || scrollButton === 'both')&&data.length>5)  && (
         <button onClick={scrollLeft} className='w-[60px] h-[60px] bg-white
           items-center sm:hidden lg:group-hover:flex
          justify-center absolute rounded-[50%] top-[45%] left-[-30px]
@@ -63,7 +65,7 @@ function MovieCarousel({ data,title }) {
           <ChevronLeftIcon className='w-7 h-7 font-extrabold  text-black' />
         </button>
       )}
-      {(scrollButton === 'right' || scrollButton === 'both') && (
+      {((scrollButton === 'right' || scrollButton === 'both') && data.length>5) && (
         <button onClick={scrollRight} className='w-[60px] h-[60px] bg-white
         absolute  top-[45%] right-[-30px] sm:hidden lg:group-hover:flex 
          items-center rounded-[50%] justify-center cursor-pointer '>
@@ -72,7 +74,7 @@ function MovieCarousel({ data,title }) {
       )}
       <div 
         className='flex flex-row w-[100%] h-fit lg:overflow-x-hidden overflow-y-hidden
-        px-[5px] items-start justify-start snap-x snap-mandatory' ref={carouselRef}>
+        px-[5px] items-start justify-start snap-x snap-mandatory ' ref={carouselRef}>
         {data.map((item) => (
           <Link href={`/movie/${item.id}?id=${item.id}`} as={`/movie/${item.id}-${item.title}`}
             key={item.id}
