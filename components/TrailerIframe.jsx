@@ -5,7 +5,7 @@ function TrailerIframe({TrailerId,YTtrailer,onClose}) {
     return (
         <>{YTtrailer &&(
             <div className="flex flex-col 
-            w-fit h-fit bg-black fixed 
+            w-fit h-fit bg-black fixed rounded-[15px]
             md:top-[3%] sm:max-md:top-[30%] z-[150]" >
                 <div className='h-[50px] w-full flex  px-5 items-center justify-between'>
                     <p className='text-xl font-light'>Trailer</p>
