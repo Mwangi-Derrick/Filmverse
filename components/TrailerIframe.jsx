@@ -11,7 +11,8 @@ function TrailerIframe({TrailerId,YTtrailer,onClose}) {
                     <p className='text-xl font-light'>Trailer</p>
                     <i onClick={onClose}
                         className='w-6 h-6 flex items-center justify-center cursor-pointer
-                       hover:bg-stone-800 rounded-[30%]'><XMarkIcon className='h-4 w-4'/></i>
+                      lg:hover:bg-stone-800
+                      sm:max-lg:bg-stone-800 rounded-[30%]'><XMarkIcon className='h-4 w-4' /></i>
                 </div>
                 <div className='lg:w-[940px] lg:h-[530px] sm:max-md:w-[360px] sm:max-md:h-[203px]
                 md:max-lg:w-[640px] md:max-lg:h-[360px]'>
