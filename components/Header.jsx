@@ -45,7 +45,8 @@ function Navbar() {
             <p className="flex w-full  font-light">TV-SHOWS
               </p>
           </Link>
-          <Link  className={`${movies? 'border-b-red-500 border-b-[2px] text-red-500':'border-b-[2px] border-b-transparent text-white'}
+          <Link className={`${movies ? 'border-b-red-500 border-b-[2px] text-red-500' :
+            'border-b-[2px] border-b-transparent text-white'}
           flex items-center justify-center h-full w-[85px] px-3 
           transition-all duration-700 ease-in-out hover:border-b-red-500
           hover:text-red-500`}
@@ -72,7 +73,7 @@ const Searchbox = () => {
   };
   const closeIcon = inputValue !== "";
   return (
-    <div className="bg-neutral-800 flex items-center justify-between h-[40px] w-[380px] rounded-3xl
+    <div className="bg-neutral-800 flex items-center justify-between h-[40px] w-[380px] rounded-md
     border-neutral-700 mx-[40px] px-4 sm:max-lg:hidden">
        <MagnifyingGlassIcon className="w-5 h-5 text-white" />
        <input
