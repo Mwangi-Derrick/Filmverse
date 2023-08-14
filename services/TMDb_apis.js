@@ -173,14 +173,6 @@ const tvShowGenres = {
 };
 
 
-async function fetchMovieGenre(id,page) {
-  const response = await
-  fetch(`https://api.themoviedb.org/3/discover/movie?api_key=${Key}&with_genres=${id}&page=${page}`)
-  const data = await response.json();
-  console.log(data)
-  return data.results;
-}
-
    async function fetchTrending(){
      const response = await fetch(`https://api.themoviedb.org/3/trending/movie/day?api_key=${Key}&language=${language}
     `)
@@ -188,7 +180,7 @@ async function fetchMovieGenre(id,page) {
      return data.results;
      
    }
-   export {fetchMovieGenre,fetchTrending}
+   export {fetchTrending}
 
 
 
