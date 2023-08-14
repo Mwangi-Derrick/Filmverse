@@ -9,7 +9,6 @@ function TvCarousel({ data,title }) {
 
   const [TvShows, setTvShows] = useState(data);
   useEffect(() => { setTvShows(data) }, [data])
-  console.log(TvShows)
   useEffect(() => {
     const handleScrollButtons = () => {
       if (carouselRef.current) {
@@ -52,21 +51,21 @@ function TvCarousel({ data,title }) {
   };
   
   return (
-    <div className='text-white w-[90%] h-fit mx-auto flex flex-col relative group
+    <div className='text-white lg:w-[90%] sm:w-[100%] h-fit mx-auto flex flex-col relative group
     my-5'>
     <div className='px-[10px] py-2 lg:h-[60px] flex items-center justify-between
       '><p className='lg:text-3xl font-medium capitalize'
         >{title}</p> </div>
       {(scrollButton === 'left' || scrollButton === 'both' ) && (
         <button onClick={scrollLeft} className='w-[60px] h-[60px] bg-white
-          items-center hidden group-hover:flex
+          items-center hidden lg:group-hover:flex
          justify-center absolute rounded-[50%] top-[45%] left-[-30px] cursor-pointer'>
           <ChevronLeftIcon className='w-7 h-7 font-extrabold stroke-current stroke-1 text-black' />
         </button>
       )}
       {(scrollButton === 'right' || scrollButton === 'both') && (
         <button onClick={scrollRight} className='w-[60px] h-[60px] bg-white
-        absolute  top-[45%] right-[-30px] hidden group-hover:flex
+        absolute  top-[45%] right-[-30px] hidden lg:group-hover:flex
          items-center rounded-[50%] justify-center cursor-pointer'>
           <ChevronRightIcon className='w-7 h-7 font-extrabold stroke-current stroke-1 text-black' />
         </button>
