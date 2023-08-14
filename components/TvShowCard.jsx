@@ -4,7 +4,6 @@ import React from 'react'
 
 const baseImageUrl = 'https://image.tmdb.org/t/p/w500/';
 function TvShowCard({TvShow}) {
-  console.log(TvShow)
   const showTitle = TvShow.name.replace(/\s+/g,"-")
   
   return (
@@ -16,7 +15,7 @@ function TvShowCard({TvShow}) {
               layout='responsive' className='lg:h-[250px] 
             sm:max-lg:h-[180px]
             select-none rounded-md bg-cover'/>
-          <p>{TvShow.name}</p>  
+          <p className='hover:underline pt-3 sm:max-lg:hidden'>{TvShow.name}</p>  
     </Link>
   )
 }
