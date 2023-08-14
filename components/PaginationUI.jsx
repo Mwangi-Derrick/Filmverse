@@ -47,7 +47,6 @@ function PaginationUI() {
     </Link>
   )
   )
- 
       return (
         <div className='h-[80px] w-full flex items-center justify-center mt-5
         py-2
