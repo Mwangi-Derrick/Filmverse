@@ -16,6 +16,9 @@ module.exports = {
         'sm': '334px',
         '3xl':'2000px',
       },
+      transitionProperty: {
+        'height':'height',
+      },
       colors: {
         brown: {
           50: '#fdf8f6',
