@@ -1,15 +1,19 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
-import Image from "next/image";
+import Image  from "next/image";
 import Link from "next/link";
-import filmverse from "../public/film.png";
-import { MagnifyingGlassIcon, XMarkIcon,Bars3Icon } from "@heroicons/react/24/solid";
+import filmverse  from "../public/logo.png";
+import { MagnifyingGlassIcon, XMarkIcon,Bars3Icon,ChevronLeftIcon} from "@heroicons/react/24/solid";
+import { FilmIcon, TvIcon, UserCircleIcon, HomeIcon} from "@heroicons/react/24/outline"
+import SearchResults from "./SearchResults";
+
 function Header() {
   return (
-    <header
-      className="w-screen h-[60px] bg-neutral-900 z-[99]
+    <header 
+      className="w-screen h-[60px] z-[99] bg-neutral-900
      flex items-center justify-start fixed top-0 
+     transition-colors duration-1000 ease-in-out
       " >
       <Navbar />
     </header>
@@ -19,79 +23,188 @@ function Navbar() {
   const path = usePathname();
   const tv_shows = path.startsWith('/tv-shows')
   const movies = path.startsWith('/movies')
-  
+  const [expandSearchBox, setExpandSearchBox] = useState(false)
+  const setSearchboxState = (state) => {
+    setExpandSearchBox(state)
+  }
+  const disappearStyle = {
+    display:expandSearchBox?"none":""
+  }
+ console.log(path)
   return (
     <nav
-      className="w-[100%] h-[fit-content] flex
-    items-center justify-start bg-neutral-900"
+      className="w-[100%] h-fit flex px-3
+    items-center lg:justify-start sm:justify-between"
     >
-      <div className="w-[200px] mr-[10px] h-[60px] flex items-center justify-between">
-      <button className="py-[16px] px-[26px]"> 
-      <Bars3Icon className='h-7 w-7 relative  text-white'/></button>
-    <Link href="/">
-      <Image  src={filmverse} alt="filmverse-logo" width={600} height={100} />
+      <div className="lg:w-[200px] mr-[10px] h-[60px] flex items-center justify-between">
+        <button style={{ WebkitTapHighlightColor: "rgba(0,0,0,0)" }}
+          className="py-[16px] lg:px-[26px] sm:px-1"> 
+          {!expandSearchBox?(
+            <Bars3Icon className='h-7 w-7 relative outline-none text-white'/>) :
+            (<ChevronLeftIcon
+              onClick={() => { setExpandSearchBox(false) }} className="h-6 w-6 relative
+              outline-none text-white"/>)
+          }</button>
+    <Link style={disappearStyle} href="/" >
+      <Image src={filmverse} width={200} height={60} className="sm:max-md:w-[200px]"  alt=""/>
     </Link>
   </div>
-      <section className="flex w-fit h-[60px] items-center justify-around sm:max-lg:flex-row">
-          <Searchbox />
-        <div className="h-full w-fit flex items-center justify-between flex-row">
-        <Link  className={`
-           ${tv_shows ? 'border-b-red-500 border-b-[2px] text-red-500' :
-              'border-b-[2px] border-b-transparent text-white'}
-          h-full w-[100px] px-1 flex items-center justify-center  hover:border-b-red-500
-          transition-all duration-700 ease-in-out
-          hover:text-red-500 `}
-            href="/tv-shows">
-            <p className="flex w-full  font-light">TV-SHOWS
+          <Searchbox setState={setSearchboxState} boxState={expandSearchBox} />
+      <div style={disappearStyle} className="h-[60px] w-fit flex 
+        items-center justify-between flex-row text-white">
+        <Link href='/'  
+          className={`${path === '/' ? "border-b-red-500 text-red-500" : "border-b-transparent"}
+          h-full w-[65px] px-1 flex flex-col items-center
+           justify-center hover:border-b-red-500
+           border-b-[2px] border-b-solid
+          transition-colors duration-700 ease-in-out
+          border-solid
+          hover:text-red-500`}>
+          <HomeIcon className='w-5 h-5' />
+          <p className="sm:max-lg:text-[10px] text-[12px] py-1">Home</p>
+        </Link>
+        <Link 
+          className={`${tv_shows ? "border-b-red-500 text-red-500" : "border-b-transparent"}
+          h-full w-[65px] px-1 flex flex-col items-center
+           justify-center hover:border-b-red-500
+           border-b-[2px] border-b-solid
+          transition-colors duration-700 ease-in-out
+          border-solid
+          hover:text-red-500`}
+          href="/tv-shows">
+          <TvIcon className="w-5 h-5"/>
+            <p className="sm:max-lg:text-[10px] text-[12px] py-1">TV shows
               </p>
           </Link>
-          <Link className={`${movies ? 'border-b-red-500 border-b-[2px] text-red-500' :
-            'border-b-[2px] border-b-transparent text-white'}
-          flex items-center justify-center h-full w-[85px] px-3 
-          transition-all duration-700 ease-in-out hover:border-b-red-500
+        <Link 
+          className={`${movies ? "border-b-red-500 text-red-500" : "border-b-transparent"}
+          flex flex-col items-center justify-center h-full w-[65px] px-1
+          transition-colors duration-700 ease-in-out hover:border-b-red-500
+          border-b-[2px] border-b-solid
+          border-solid
           hover:text-red-500`}
-            href="/movies">
-                <p className=" font-light">MOVIES</p>
+          href="/movies">
+          <FilmIcon className="w-5 h-5"/>
+                <p className="sm:max-lg:text-[10px] text-[12px] py-1">Movies</p>
           </Link>
             </div>
-      </section>
-      <section className="w-fit h-fit">
-        <div className="w-[150px] h-[50px] flex items-center justify-center">Profile</div>
+      <section style={disappearStyle}
+        className="h-[60px] flex lg:flex-1 lg:pr-[200px] items-center justify-start">
+        <Link href='/sign-in' className=" h-full flex flex-col cursor-pointer px-1
+        border-b-[2px] border-b-solid border-b-transparent items-center justify-center text-white">
+          <UserCircleIcon className="w-5 h-5"/>
+          <p className="sm:max-lg:text-[10px] text-[12px] py-1">Sign In</p>
+        </Link>
       </section>
     </nav>
   );
 }
 
-const Searchbox = () => {
+const Searchbox = ({ setState, boxState }) => {
+  
   let [inputValue, setInput] = useState("");
   const handleInput = (e) => {
-    let input = e.target.value;
-    setInput(input);
+    setInput(e.target.value);
   };
+  
   const clearInput = () => {
     setInput("");
   };
   const closeIcon = inputValue !== "";
-  return (
-    <div className="bg-neutral-800 flex items-center justify-between h-[40px] w-[380px] rounded-md
-    border-neutral-700 mx-[40px] px-4 sm:max-lg:hidden">
-       <MagnifyingGlassIcon className="w-5 h-5 text-white" />
-       <input
-         onInput={handleInput}
-         value={inputValue}
-         type="text"
-         placeholder="Search for movies or Tv shows"
-         className="bg-transparent outline-none w-full text-white px-3"
-       />
-       {closeIcon && (
-         <XMarkIcon
-           onClick={clearInput}
-           className="w-6 h-6 text-white cursor-pointer"
-         />
-       )}
-     </div>
-  )
-}
-
+  const searchBoxWidth = {
+    width: boxState ? "85vw" : "",
+    marginLeft: boxState ? 0 : "",
+    marginRight: boxState ? 15 : "",
+    paddingRight: boxState ? 10 : ""
+  }
+  const [width, setWidth] = useState(window.innerWidth);
+  useEffect(() => {
+    function trackWidth() {
+        setWidth(window.innerWidth)
+        if(width > 960){setState(false)}
+    }
+    window.addEventListener('resize',trackWidth )
+    return ()=> {window.removeEventListener('resize',trackWidth)}
+  })
+  const [searchData,setSearchResults] = useState(null)
+  useEffect(() => {
+    async function searchData() {
+      const delay = (ms) => { new Promise((resolve) => { setTimeout(resolve, ms) }) }
+      const key = "31893f5365efe0cdf393794446aae7a6"
+      delay(2000)
+      const results = await fetch(`https://api.themoviedb.org/3/search/multi?api_key=${key}&query=${inputValue}`);
+      const data = await results.json();
+      const searchList = data.results;
+      setSearchResults(searchList.filter((result)=>result.media_type !== "person"))
+      console.log(searchList)
+      return ()=>{setSearchResults(null)}
+    }
+    searchData();
+  }, [inputValue])
+  const searchResultsRef = useRef(null)
+  const searchBoxRef = useRef(null)
+  useEffect(() => {
+    const handeleSearchList = (e) => {
+      if (e.target !== searchResultsRef.current && e.target!==searchBoxRef.current)
+      { searchResultsRef.current.style.display = "none" }
+    }
+    window.addEventListener("click", handeleSearchList)
+    return()=>{window.removeEventListener("click",handeleSearchList)}
+  }, [])
+  console.log(inputValue)
+  return (<div className="flex flex-col
+   h-fit w-fit items-center" >
+      <section style={searchBoxWidth} ref={searchBoxRef}
+        className="bg-neutral-800 flex items-center justify-between h-[40px] sm:w-[40px] lg:w-[380px] 
+    lg:rounded-md sm:rounded-full 
+    border-neutral-700 lg:mx-[40px] sm:mx-[10px] lg:px-4 relative">
+      <button style={{ WebkitTapHighlightColor:"rgba(0,0,0,0)"}}
+        onClick={() => { setState(true) }} disabled={width > 960}
+          className="sm:max-lg:w-[40px] sm:max-lg:h-[40px] flex items-center
+     sm:max-lg:cursor-pointer justify-center ml-3 outline-none">
+          <MagnifyingGlassIcon className="w-5 h-5 text-white" /></button>
+        <input
+          onChange={handleInput}
+            value={inputValue}
+          type="text"
+          placeholder="Search for movies or Tv shows"
+          className="bg-transparent outline-none w-full text-white px-3"
+        />
+        {closeIcon && (
+          <XMarkIcon
+            onClick={clearInput}
+            className="w-6 h-6 text-white cursor-pointer"
+          />
+        )}
+      </section>
+    {searchData && (<ul ref={searchResultsRef}
+      style={{ display: inputValue === "" ? "none" : "" }}
+      className="w-[450px] bg-neutral-900 
+      absolute top-[95%] bg-opacity-90 divide-y divide-solid divide-zinc-950 
+      overflow-y-scroll rounded-md 
+      border-t-solid border-t-black border-t-4
+      sm:max-lg:w-[100vw] sm:max-lg:left-0 sm:max-lg:h-screen
+      lg:h-[400px]
+    ">
+      { searchData && searchData.map((list, index) => (
+        <SearchResults key={index}
+          textHighlight={inputValue}
+          clear={setInput}
+          media={list.media_type}
+          imagePath={list.poster_path}
+          releaseDate={list?.release_date || list?.first_air_date}
+          name={list.title || list.original_title || list.name}
+          id={list.id} />
+      )
+      )}
+      {searchData && searchData.length === 0 && (<li className="w-full h-[50px]
+       uppercase flex justify-center text-base text-white font-semibold items-center">
+        can't find {`"${inputValue}"`}
+      </li>)}
+    </ul>)
+    }
+    </div>
+    )
+  }
 
 export default Header;
