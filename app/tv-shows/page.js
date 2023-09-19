@@ -11,7 +11,8 @@ async function page() {
     {id:10762,name:"kids"},
     {id:18,name:"drama"},
     {id:9648,name: "mystery"},
-    {id:10765,name: "Sci-Fi"},
+    { id: 10765, name: "Sci-Fi" },
+    {id:10768,name:"war & politics"},
     {id:10764,name: "reality"},
     {id:37,name:"western"}
   ]
