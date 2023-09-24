@@ -8,7 +8,7 @@ function SearchResults({media,id,name,imagePath,releaseDate,clear,textHighlight}
     function generateHref(mediaType) {
         if (mediaType === "movie") { return `/movie/${id}-${title}` }
         if (mediaType === "tv") {
-            return `/tv/${id}-${title}`
+            return `/show/${id}-${title}`
         }
     }
 
