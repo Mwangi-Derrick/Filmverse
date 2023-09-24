@@ -20,7 +20,7 @@ export default function PersonDetails({ personCredits, personInfo }) {
         if (media.media_type === "movie")
         { return `/movie/${media.id}-${media.title.replace(/\s+/g, "-")}` }
         if (media.media_type === "tv")
-        { return `/tv/${media.id}-${media.name.replace(/\s+/g, "-")}` }
+        { return `/show/${media.id}-${media.name.replace(/\s+/g, "-")}` }
     }
     /*The map method generates an array of ids from the movies and tv shows and puts them in the Javascript Set
      to effectively remove any duplicate Ids that may arise,the Set then is 
