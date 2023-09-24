@@ -9,7 +9,7 @@ function TvShowCard({TvShow}) {
   
   return (
     <Link style={{ WebkitTapHighlightColor:"rgba(0,0,0,0)"}}
-      href={`/tv/${TvShow.id}-${showTitle}`} 
+      href={`/show/${TvShow.id}-${showTitle}`} 
       className='mx-[5px] flex flex-col snap-end items-center justify-start h-fit
       flex-grow-0 flex-shrink-0 lg:basis-[180px] sm:max-lg:basis-[150px] group/card'>
           <Image width={1900} height={1000}
