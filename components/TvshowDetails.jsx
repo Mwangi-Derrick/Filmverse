@@ -40,7 +40,7 @@ function TvshowDetails({ seriesInfo, seasons, fetchEpisodes,suggestedShows,video
     </p>))
   return (
       <div className='text-white h-full w-screen flex flex-col
-    items-center
+    items-center relative top-[-60px]
     justify-between
      ' > 
           <div className='flex lg:flex-row sm:flex-col w-full min-h-[70vh] bg-no-repeat
