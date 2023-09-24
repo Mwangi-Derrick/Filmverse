@@ -52,7 +52,7 @@ function Slider() {
     if (show.media_type === "tv") { return `/tv/${id}-${formattedTitle}` }
   }
   return (
-    <div className="w-screen h-[400px] bg-transparent relative">
+    <div className="w-screen h-[450px] bg-transparent relative">
       <div  
         className="w-[80px] h-full flex flex-col items-center justify-center absolute left-0
       sm:max-lg:hidden">
