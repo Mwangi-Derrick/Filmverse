@@ -4,16 +4,18 @@ import { usePathname } from "next/navigation";
 import Image  from "next/image";
 import Link from "next/link";
 import filmverse  from "../public/logo.png";
-import { MagnifyingGlassIcon, XMarkIcon,Bars3Icon,ChevronLeftIcon} from "@heroicons/react/24/solid";
-import { FilmIcon, TvIcon, UserCircleIcon, HomeIcon} from "@heroicons/react/24/outline"
+import {
+  MagnifyingGlassIcon, XMarkIcon, Bars3Icon, FilmIcon,ChevronLeftIcon,TvIcon, UserCircleIcon, HomeIcon
+} from "@heroicons/react/24/solid";
 import SearchResults from "./SearchResults";
 
 function Header() {
   return (
     <header 
-      className="w-screen h-[60px] z-[99] bg-neutral-900
+      className="w-screen h-[60px] z-[99]
      flex items-center justify-start fixed top-0 
      transition-colors duration-1000 ease-in-out
+     shadow-sm shadow-neutral-800/50
       " >
       <Navbar />
     </header>
@@ -24,17 +26,35 @@ function Navbar() {
   const tv_shows = path.startsWith('/tv-shows')
   const movies = path.startsWith('/movies')
   const [expandSearchBox, setExpandSearchBox] = useState(false)
+  const [scrollPstn,setScrollY] = useState("")
   const setSearchboxState = (state) => {
     setExpandSearchBox(state)
   }
   const disappearStyle = {
     display:expandSearchBox?"none":""
   }
- console.log(path)
+  console.log(path.split("/"))
+  console.log(scrollPstn)
+  useEffect(() => {
+    const updateScrollPosition = () => {
+      setScrollY(window.scrollY)
+    }
+    window.addEventListener("scroll", updateScrollPosition)
+    return ()=>{window.removeEventListener("scroll",updateScrollPosition)}
+  }, [])
+  const navbarStyles = () => {
+     //This variable stores the pathname as string movies or movie when the user is in the movies and movie route respectively
+   const movieOrmovies = path.split("/")[1]
+    if (path === "/" && scrollPstn > 450) { return { backgroundColor: "#171717" } }
+    else if (movieOrmovies === "movie" && scrollPstn > 400) { return { backgroundColor: "#171717" } }
+    else if (path.startsWith("/show") && scrollPstn > 400) { return { backgroundColor: "#171717" } }
+    else if (path === "/" || movieOrmovies === "movie" || path.startsWith("/show") && scrollPstn < 400){return {backgroundColor:"transparent"}}
+    else{return {backgroundColor:"#171717"}}
+  }
   return (
-    <nav
-      className="w-[100%] h-fit flex px-3
-    items-center lg:justify-start sm:justify-between"
+    <nav style={navbarStyles()}
+      className="w-[100%] h-fit flex px-3 transition-colors duration-1000 ease-in-out
+    items-center lg:justify-start sm:justify-between backdrop-blur-sm backdrop-brightness-[60%]"
     >
       <div className="lg:w-[200px] mr-[10px] h-[60px] flex items-center justify-between">
         <button style={{ WebkitTapHighlightColor: "rgba(0,0,0,0)" }}
@@ -117,7 +137,7 @@ const Searchbox = ({ setState, boxState }) => {
     marginRight: boxState ? 15 : "",
     paddingRight: boxState ? 10 : ""
   }
-  const [width, setWidth] = useState(window.innerWidth);
+  const [width, setWidth] = useState("");
   useEffect(() => {
     function trackWidth() {
         setWidth(window.innerWidth)
@@ -156,7 +176,7 @@ const Searchbox = ({ setState, boxState }) => {
    h-fit w-fit items-center" >
       <section style={searchBoxWidth} ref={searchBoxRef}
         className="bg-neutral-800 flex items-center justify-between h-[40px] sm:w-[40px] lg:w-[380px] 
-    lg:rounded-md sm:rounded-full 
+    lg:rounded-md sm:rounded-full bg-opacity-60 backdrop-blur-sm
     border-neutral-700 lg:mx-[40px] sm:mx-[10px] lg:px-4 relative">
       <button style={{ WebkitTapHighlightColor:"rgba(0,0,0,0)"}}
         onClick={() => { setState(true) }} disabled={width > 960}
