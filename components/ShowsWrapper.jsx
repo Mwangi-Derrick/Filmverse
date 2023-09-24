@@ -34,7 +34,7 @@ function ShowsWrapper({ fetchShows,genreType }) {
           items-center justify-center min-h-screen
           p-3'>
               {shows.map((show) => (<Link key={show.id}
-                  href={`/tv/${show.id}-${showTilteUrlSegment(show.name)}`}
+                  href={`/show/${show.id}-${showTilteUrlSegment(show.name)}`}
                   className='flex flex-col w-auto h-auto items-center justify-center m-1 group'>
                   <div className='w-full h-auto'>
                       <Image src={`${baseImageUrl}${show.poster_path}`}
