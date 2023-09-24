@@ -34,7 +34,7 @@ export default async function Home() {
     delay(300)
   }
   return (
-    <div className="flex min-h-screen flex-col items-center justify-between ">
+    <div className="flex min-h-screen flex-col items-center justify-between relative top-[-60px]">
       <Slider/>
       {titles.map((key, index) => (<MovieCarousel key={index} data={movies[key]} title={`${key} movies`} />))}
       {tvTitles.map((key, index) => (<TvCarousel key={index} data={shows[key]} title={`${key} shows`}/>))}

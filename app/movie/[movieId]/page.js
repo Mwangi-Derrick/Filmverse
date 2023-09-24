@@ -65,7 +65,9 @@ function page({ params }) {
          url(${img_Url}${movieInfo.backdrop_path})`
     }}
       className='flex items-center text-white h-full w-full flex-col
-       justify-start bg-no-repeat bg-cover aspect-square bg-center 
+       justify-start bg-no-repeat bg-cover aspect-square bg-center relative
+       pt-12
+       top-[-60px]
         '>
       <Head>
         <title>
