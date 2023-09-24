@@ -49,7 +49,7 @@ function Slider() {
     const title = generateTitle(show)
     const formattedTitle = title.replace(/\s+/g, "-")
     if (show.media_type === "movie") { return `/movie/${id}-${formattedTitle}` }
-    if (show.media_type === "tv") { return `/tv/${id}-${formattedTitle}` }
+    if (show.media_type === "tv") { return `/show/${id}-${formattedTitle}` }
   }
   return (
     <div className="w-screen h-[450px] bg-transparent relative">
