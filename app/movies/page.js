@@ -22,7 +22,7 @@ async function Movies() {
   const movies = {}
   for (const genre of movieGenres)
   {
-   const results = await fetch(`https://api.themoviedb.org/3/discover/movie?api_key=${Key}&with_genres=${genre.id}`)
+   const results = await fetch(`https://api.themoviedb.org/3/discover/movie?api_key=${Key}&with_genres=${genre.id}`,{cache:'no-store'})
     const data = await results.json();
     movies[genre.name] = data.results
     delay(200)
