@@ -2,7 +2,10 @@ import React from "react";
 import MovieCarousel from "@/components/MovieCarousel";
 import Sidebar from "@/components/Sidebar";
 
-
+export const metadata = {
+  title: 'movies',
+  description: 'movies-page',
+}
 async function Movies() {
   const Key = '31893f5365efe0cdf393794446aae7a6'
   const movieGenres = [

@@ -1,6 +1,10 @@
 import Sidebar from '@/components/Sidebar'
 import TvCarousel from '@/components/TvCarousel'
 import React from 'react'
+export const metadata = {
+  title: 'Tv-shows',
+  description: 'tv-shows-page',
+}
 async function page() {
   const Key = "31893f5365efe0cdf393794446aae7a6"
   const tvShowGenres = [
