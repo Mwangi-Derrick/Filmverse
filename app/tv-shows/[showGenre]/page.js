@@ -1,7 +1,16 @@
 import ShowsWrapper from '@/components/ShowsWrapper'
 import Sidebar from '@/components/Sidebar'
 import React from 'react'
-
+export async function generateMetadata({ params }) {
+  // read route params
+  const show_params = params.showGenre
+  const substrings = show_params.split("-")
+ const show_genre = substrings.slice(0,substrings.length).join("-").replace(/\%26/g," & ")
+  return {
+    title: show_genre,
+     description:"show-genre"
+  }
+}
 async function page({ params }) {
   const routeSegement = params.showGenre
   const substrings = routeSegement.split("-")
