@@ -3,23 +3,23 @@ import MovieCarousel from "@/components/MovieCarousel";
 import Sidebar from "@/components/Sidebar";
 
 export const metadata = {
-  title: 'movies',
-  description: 'movies-page',
+  title: 'Movies',
+  description: 'Movies-page',
 }
 async function Movies() {
   const Key = '31893f5365efe0cdf393794446aae7a6'
   const movieGenres = [
-    {name:"adventure",id:12},
-    { name: "action", id: 28 },
-    {name:"thriller",id:53},
-    { name: "family", id: 10751 },
-    {name:"horror",id:27},
-    { name: "comedy", id: 35 },
-    { name: "crime", id: 80 },
-    { name: "animation", id: 16 },
-    { name: "fantasy", id: 14 },
-    { name: "mystery", id: 9648 },
-    {name:"sci-fi",id:878},
+    {name:"Adventure",id:12},
+    { name: "Action", id: 28 },
+    {name:"Thriller",id:53},
+    { name: "Family", id: 10751 },
+    {name:"Horror",id:27},
+    { name: "Comedy", id: 35 },
+    { name: "Crime", id: 80 },
+    { name: "Animation", id: 16 },
+    { name: "Fantasy", id: 14 },
+    { name: "Mystery", id: 9648 },
+    {name:"Sci-fi",id:878},
   ]
   const delay = (ms) => { new Promise((resolve)=>setTimeout(resolve,ms)) }
   const movies = {}
