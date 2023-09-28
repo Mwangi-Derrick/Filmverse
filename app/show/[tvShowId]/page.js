@@ -1,5 +1,15 @@
 import TvshowDetails from '@/components/TvshowDetails'
 import React from 'react'
+export async function generateMetadata({ params }) {
+  // read route params
+  const show_params = params.tvShowId
+  const subtrings = show_params.split("-")
+  const show_name = subtrings.slice(1, subtrings.length).join(" ").replace(/\%3A/,":")
+  return {
+    title: show_name,
+     description:"show-title"
+  }
+}
 
 async function page({ params }) {
   const Key="31893f5365efe0cdf393794446aae7a6"
