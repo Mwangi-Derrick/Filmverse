@@ -1,7 +1,16 @@
 import MovieWrapper from '@/components/MovieWrapper'
 import Sidebar from '@/components/Sidebar'
 import React from 'react'
-
+export async function generateMetadata({ params }) {
+  // read route params
+  const movie_params = params.movieGenre
+  const subtrings = movie_params.split("-")
+  const movie_genre = subtrings.slice(0,subtrings.length-1).join(" ")
+  return {
+    title: movie_genre,
+     description:"movie-genre"
+  }
+}
 export default async function page({ params }) {
   const parameter = params.movieGenre
   const param_subtrings = parameter.split("-")
