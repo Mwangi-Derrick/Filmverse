@@ -1,5 +1,14 @@
 import MovieDetails from "@/components/MovieDetails";
-
+export async function generateMetadata({ params }) {
+  // read route params
+  const movie_params = params.movieId
+  const subtrings = movie_params.split("-")
+  const movie_title = subtrings.slice(1,subtrings.length).join(" ")
+  return {
+    title: movie_title,
+     description:"movie-title"
+  }
+}
 async function page({ params }) {
   const idParams = (params.movieId).split("-");
   const movieId = idParams[0];
