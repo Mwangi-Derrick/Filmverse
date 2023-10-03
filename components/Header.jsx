@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, useContext } from "react";
 import { usePathname } from "next/navigation";
 import Image  from "next/image";
 import Link from "next/link";
@@ -8,7 +8,7 @@ import {
   MagnifyingGlassIcon, XMarkIcon, Bars3Icon, FilmIcon,ChevronLeftIcon,TvIcon, UserCircleIcon, HomeIcon
 } from "@heroicons/react/24/solid";
 import SearchResults from "./SearchResults";
-
+import { SidebarContext } from "@/app/mobilesidebar_context";
 function Header() {
   return (
     <header 
@@ -22,6 +22,7 @@ function Header() {
   );
 }
 function Navbar() {
+  const { Sidebarvisible, setSidebarVisible } = useContext(SidebarContext);
   const path = usePathname();
   const tv_shows = path.startsWith('/tv-shows')
   const movies = path.startsWith('/movies')
@@ -30,6 +31,7 @@ function Navbar() {
   const setSearchboxState = (state) => {
     setExpandSearchBox(state)
   }
+  console.log(Sidebarvisible)
   const disappearStyle = {
     display:expandSearchBox?"none":""
   }
@@ -60,7 +62,8 @@ function Navbar() {
         <button style={{ WebkitTapHighlightColor: "rgba(0,0,0,0)" }}
           className="py-[16px] lg:px-[26px] sm:px-1"> 
           {!expandSearchBox?(
-            <Bars3Icon className='h-7 w-7 relative outline-none text-white'/>) :
+            <Bars3Icon onClick={()=>{setSidebarVisible(true)}}
+              className='h-7 w-7 relative outline-none text-white' />) :
             (<ChevronLeftIcon
               onClick={() => { setExpandSearchBox(false) }} className="h-6 w-6 relative
               outline-none text-white"/>)
@@ -201,6 +204,7 @@ const Searchbox = ({ setState, boxState }) => {
       style={{ display: inputValue === "" ? "none" : "" }}
       className="w-[450px] bg-neutral-900 
       absolute top-[95%] bg-opacity-90 divide-y divide-solid divide-zinc-950 
+
       overflow-y-scroll rounded-md 
       border-t-solid border-t-black border-t-4
       sm:max-lg:w-[100vw] sm:max-lg:left-0 sm:max-lg:h-screen
