@@ -5,7 +5,7 @@ import Image  from "next/image";
 import Link from "next/link";
 import filmverse  from "../public/logo.png";
 import {
-  MagnifyingGlassIcon, XMarkIcon, Bars3Icon, FilmIcon,ChevronLeftIcon,TvIcon, UserCircleIcon, HomeIcon
+  MagnifyingGlassIcon, XMarkIcon, Bars3Icon, FilmIcon,ArrowLeftIcon,TvIcon, UserCircleIcon, HomeIcon
 } from "@heroicons/react/24/solid";
 import SearchResults from "./SearchResults";
 import { SidebarContext } from "@/app/mobilesidebar_context";
@@ -56,7 +56,7 @@ function Navbar() {
   return (
     <nav style={navbarStyles()}
       className="w-[100%] h-fit flex px-3 transition-colors duration-1000 ease-in-out
-    items-center lg:justify-start sm:justify-between backdrop-blur-sm backdrop-brightness-[60%]"
+    items-center justify-start  backdrop-blur-sm backdrop-brightness-[60%]"
     >
       <div className="lg:w-[200px] mr-[10px] h-[60px] flex items-center justify-between">
         <button style={{ WebkitTapHighlightColor: "rgba(0,0,0,0)" }}
@@ -64,12 +64,12 @@ function Navbar() {
           {!expandSearchBox?(
             <Bars3Icon onClick={()=>{setSidebarVisible(true)}}
               className='h-7 w-7 relative outline-none text-white' />) :
-            (<ChevronLeftIcon
+            (<ArrowLeftIcon
               onClick={() => { setExpandSearchBox(false) }} className="h-6 w-6 relative
               outline-none text-white"/>)
           }</button>
     <Link style={disappearStyle} href="/" >
-      <Image src={filmverse} width={200} height={60} className="sm:max-md:w-[200px]"  alt=""/>
+      <Image src={filmverse} width={200} height={60} className="sm:max-md:w-[110px]"  alt="logo"/>
     </Link>
   </div>
           <Searchbox setState={setSearchboxState} boxState={expandSearchBox} />
@@ -79,7 +79,7 @@ function Navbar() {
           className={`${path === '/' ? "border-b-red-500 text-red-500" : "border-b-transparent"}
           h-full w-[65px] px-1 flex flex-col items-center
            justify-center hover:border-b-red-500
-           border-b-[2px] border-b-solid
+           border-b-[2px] border-b-solid sm:max-lg:hidden
           transition-colors duration-700 ease-in-out
           border-solid
           hover:text-red-500`}>
@@ -90,7 +90,7 @@ function Navbar() {
           className={`${tv_shows ? "border-b-red-500 text-red-500" : "border-b-transparent"}
           h-full w-[65px] px-1 flex flex-col items-center
            justify-center hover:border-b-red-500
-           border-b-[2px] border-b-solid
+           border-b-[2px] border-b-solid sm:max-lg:hidden
           transition-colors duration-700 ease-in-out
           border-solid
           hover:text-red-500`}
@@ -104,7 +104,7 @@ function Navbar() {
           flex flex-col items-center justify-center h-full w-[65px] px-1
           transition-colors duration-700 ease-in-out hover:border-b-red-500
           border-b-[2px] border-b-solid
-          border-solid
+          border-solid sm:max-lg:hidden
           hover:text-red-500`}
           href="/movies">
           <FilmIcon className="w-5 h-5"/>
@@ -185,7 +185,7 @@ const Searchbox = ({ setState, boxState }) => {
         onClick={() => { setState(true) }} disabled={width > 960}
           className="sm:max-lg:w-[40px] sm:max-lg:h-[40px] flex items-center
      sm:max-lg:cursor-pointer justify-center ml-3 outline-none">
-          <MagnifyingGlassIcon className="w-5 h-5 text-white" /></button>
+          <MagnifyingGlassIcon className="w-5 h-5 text-white stroke-current stroke-1" /></button>
         <input
           onChange={handleInput}
             value={inputValue}
@@ -196,7 +196,7 @@ const Searchbox = ({ setState, boxState }) => {
         {closeIcon && (
           <XMarkIcon
             onClick={clearInput}
-            className="w-6 h-6 text-white cursor-pointer"
+            className="w-6 h-6 text-white cursor-pointer stroke-1 stroke-current"
           />
         )}
       </section>
