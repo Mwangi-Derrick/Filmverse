@@ -3,8 +3,14 @@ import { XMarkIcon } from "@heroicons/react/24/solid";
 import Link from "next/link";
 import React, { useContext } from "react";
 import { SidebarContext } from "../app/mobilesidebar_context";
+import { usePathname } from "next/navigation";
 
 export default function MobileSidebar() {
+    const path = usePathname();
+    const linkStyle = {
+        color: "#ef4444",
+   }
+    console.log(path);
     const { Sidebarvisible, setSidebarVisible } = useContext(SidebarContext);
     // the reset function restes the sidebar state
     const reset = ()=>{setSidebarVisible(false)}
@@ -21,12 +27,18 @@ export default function MobileSidebar() {
                 <XMarkIcon onClick={() => { setSidebarVisible(false) }}
                   className="stroke-current stroke-1 w-8 h-8" />
       </div>
-      <div className="flex-1 w-full flex flex-col items-center gap-3 justify-center">
-        <Link onClick={reset} href={"/"}>HOME</Link>
-        <Link onClick={reset} href={"/movies"}>MOVIES</Link>
-        <Link onClick={reset} href={"/tv-shows"}>TV-SHOWS</Link>
-        <Link onClick={reset} href={"/about"}>ABOUT</Link>
-        <Link onClick={reset} href={"/watchlist"}>WATCHLIST</Link>
+            <div className="flex-1 w-full flex flex-col 
+      items-center gap-3 justify-center font-medium">
+                <Link style={path ==="/" ? linkStyle:{color:""}}
+                    className="lg:hover:text-red-400 cursor-pointer" onClick={reset} href={"/"}>HOME</Link>
+                <Link  style={path ==="/movies" ? linkStyle:{color:""}}
+                    className="lg:hover:text-red-400 cursor-pointer" onClick={reset} href={"/movies"}>MOVIES</Link>
+                <Link  style={path ==="/tv-shows" ? linkStyle:{color:""}}
+                    className="lg:hover:text-red-400 cursor-pointer" onClick={reset} href={"/tv-shows"}>TV-SHOWS</Link>
+                <Link  style={path ==="/about" ? linkStyle:{color:""}}
+                    className="lg:hover:text-red-400 cursor-pointer" onClick={reset} href={"/about"}>ABOUT</Link>
+                <Link  style={path ==="/watchlist" ? linkStyle:{color:""}}
+                    className="lg:hover:text-red-400 cursor-pointer" onClick={reset} href={"/watchlist"}>WATCHLIST</Link>
       </div>
     </aside>
   );
