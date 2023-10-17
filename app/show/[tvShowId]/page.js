@@ -1,5 +1,6 @@
 import TvshowDetails from '@/components/TvshowDetails'
 import React from 'react'
+let TvshowsData;
 export async function generateMetadata({ params }) {
   // read route params
   const show_params = params.tvShowId
@@ -7,7 +8,7 @@ export async function generateMetadata({ params }) {
   const show_name = subtrings.slice(1, subtrings.length).join(" ").replace(/\%3A/,":")
   return {
     title: show_name,
-     description:"show-title"
+    description:`${TvshowsData?.overview}`
   }
 }
 
@@ -23,20 +24,17 @@ async function page({ params }) {
     return data.episodes
   }
   
-   
-  
   const results = await
     fetch(`https://api.themoviedb.org/3/tv/${ShowId}?api_key=${Key}&append_to_response=videos,credits,recommendations,content_ratings`, { cache: 'no-store' });
-   const  TvshowsData = await results.json();
+    TvshowsData = await results.json();
 
-    const seriesData = TvshowsData
     //use the series data to get the total number of seasons
-    const totalSeasons = seriesData?.number_of_seasons
+    const totalSeasons = TvshowsData?.number_of_seasons
     //convert the total number of seasons into an array containing the season numbers
   const seasonLists = [...Array(totalSeasons)].map((_, index) => 1 + index).reverse()
 /*object destructuring to access the credits,videos and reccomended-shows while 
 ...rest operator is used to include other details of the tv-show*/
-  const {credits,videos,recommendations,content_ratings,...info}=seriesData
+  const {credits,videos,recommendations,content_ratings,...info}=TvshowsData
   return (
     <div className='w-screen h-full'>
       <TvshowDetails seasons={seasonLists} seriesInfo={info}
