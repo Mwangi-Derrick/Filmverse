@@ -1,16 +1,14 @@
-import Head from 'next/head'
 import React from 'react'
-
+export const metadata = {
+  title: "About",
+  description:" At Fimverse, we understand the importance of movies and TV shows in your life"
+}
 export default function page() {
   
   return (
     <div 
       className='flex flex-col items-center pt-[40px]
     justify-start text-white flex-1'>
-      <Head>
-        <title>About</title>
-        <meta/>
-      </Head>
       <article className='w-[90%] h-fit'>
         <h1 className='lg:text-3xl sm:text-xl pb-4 font-semibold'>About Us</h1>
       <p className='lg:text-xl sm:text-sm'>Welcome to Fimverse - your ultimate destination for all things movies and TV shows.
