@@ -7,7 +7,7 @@ export async function generateMetadata({ params }) {
   const substrings = show_params.split("-")
  const show_genre = substrings.slice(0,substrings.length).join("-").replace(/\%26/g," & ")
   return {
-    title: show_genre,
+    title: `${show_genre} Shows`,
      description:"show-genre"
   }
 }
