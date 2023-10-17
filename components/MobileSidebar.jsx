@@ -25,7 +25,7 @@ export default function MobileSidebar() {
     >
       <div className="w-full h-fit py-6 flex justify-end px-4">
                 <XMarkIcon onClick={() => { setSidebarVisible(false) }}
-                  className="stroke-current stroke-1 w-8 h-8" />
+                  className="stroke-current stroke-1 w-8 h-8 hover:cursor-pointer" />
       </div>
             <div className="flex-1 w-full flex flex-col 
       items-center gap-3 justify-center font-medium">
