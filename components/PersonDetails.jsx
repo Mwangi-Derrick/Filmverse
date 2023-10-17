@@ -62,7 +62,7 @@ export default function PersonDetails({ personCredits, personInfo }) {
                                     loading='lazy'
                                     width='200px'
                                 height='300px'
-                                 alt='' className='h-full rounded-md
+                                 alt='actor' className='h-full rounded-md
                                w-full object-cover z-100 '/>
                                 <i className='absolute top-0 left-0 w-[45px] 
                                 h-[25px] flex items-center justify-center bg-red-500 rounded-md'>{renderMediaIcon(credit?.media_type)}</i>

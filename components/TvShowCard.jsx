@@ -9,15 +9,14 @@ function TvShowCard({TvShow}) {
   return (
     <Link style={{ WebkitTapHighlightColor:"rgba(0,0,0,0)"}}
       href={`/show/${TvShow.id}-${showTitle}`} 
-      className='mx-[5px] flex flex-col snap-end items-center justify-start h-fit
+      className='mx-[5px] flex flex-col snap-end items-center justify-start h-fit 
       flex-grow-0 flex-shrink-0 lg:basis-[180px] sm:max-lg:basis-[150px] group/card'>
           <img width="200px" height="300px"
         src={`${baseImageUrl}${TvShow.poster_path}`}
         alt={`${TvShow.title}`}
         loading='lazy'
         layout='responsive'
-        className='lg:h-[250px] 
-            sm:max-lg:h-[180px]
+        className='aspect-[18/25]
             select-none rounded-md bg-cover'
         placeholder='blur'
         blurDataURL='./placeholder.png'
