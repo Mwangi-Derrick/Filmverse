@@ -7,7 +7,7 @@ export async function generateMetadata({ params }) {
   const subtrings = movie_params.split("-")
   const movie_genre = subtrings.slice(0,subtrings.length-1).join(" ")
   return {
-    title: movie_genre,
+    title: `${movie_genre} Movies`,
      description:"movie-genre"
   }
 }
