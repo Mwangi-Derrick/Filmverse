@@ -8,7 +8,7 @@ import Media from './Media';
 import PeopleCarousel from './PeopleCarousel';
 
 function TvshowDetails({ seriesInfo, seasons, fetchEpisodes,suggestedShows,videos,showCredits,Tvratings }) {
-    const baseImageUrl = 'https://image.tmdb.org/t/p/w500/';
+    const baseImageUrl = 'https://image.tmdb.org/t/p/w780/';
     const [recommedations,setRecommedations] = useState(suggestedShows)
     const [details, setDetails] = useState(seriesInfo);
     const [episodes, setDetailSection] = useState(true);
@@ -109,7 +109,6 @@ function TvshowDetails({ seriesInfo, seasons, fetchEpisodes,suggestedShows,video
   )
 }
 function EpisodesSection({ seasonCount, fetchData }) {
-    const baseImageUrl = 'https://image.tmdb.org/t/p/w500/';
     const latestSeason = seasonCount.slice(0, 1)[0]
     const [Currentseason, setSeason] = useState(latestSeason)
     const [episodeData, setEpisodes] = useState(null)
@@ -181,9 +180,10 @@ function EpisodesSection({ seasonCount, fetchData }) {
             transition-height duration-700 ease-in
             items-center justify-start pb-2 cursor-pointer pl-1 my-1'>
             <div className='flex w-full h-fit py-2'>
-                <div className='w-[100px] h-[50px]'>
-                    <Image src={`${baseImageUrl}${episode.still_path}`}
-                        alt='' width={1000} height={1920} />
+                <div className='w-[100px] h-[55px]'>
+                    <img src={`https://image.tmdb.org/t/p/w92/${episode.still_path}`}
+                        loading='lazy'
+                        alt=''  />
                 </div>
                 <div className='flex flex-col items-start pl-3 justify-start w-fit h-fit'>
                     <h3 style={{ color: showMore[index] ? "#846358" : "" }}

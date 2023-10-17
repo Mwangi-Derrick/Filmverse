@@ -1,5 +1,4 @@
 "use client"
-import Image from 'next/image'
 import Link from 'next/link';
 import React, { Suspense } from 'react'
 
@@ -12,8 +11,10 @@ function TvShowCard({TvShow}) {
       href={`/show/${TvShow.id}-${showTitle}`} 
       className='mx-[5px] flex flex-col snap-end items-center justify-start h-fit
       flex-grow-0 flex-shrink-0 lg:basis-[180px] sm:max-lg:basis-[150px] group/card'>
-          <Image width={1900} height={1000}
-              src={`${baseImageUrl}${TvShow.poster_path}`} alt={`${TvShow.title}`}
+          <img width="200px" height="300px"
+        src={`${baseImageUrl}${TvShow.poster_path}`}
+        alt={`${TvShow.title}`}
+        loading='lazy'
         layout='responsive'
         className='lg:h-[250px] 
             sm:max-lg:h-[180px]

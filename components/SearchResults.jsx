@@ -1,4 +1,3 @@
-import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 
@@ -16,7 +15,7 @@ function SearchResults({media,id,name,imagePath,releaseDate,clear,textHighlight}
     const styledSubstring = (string, textHighlight) => {
         const substrIndex = string.toLowerCase().indexOf(textHighlight.toLowerCase());
     
-        if (substrIndex !== -1) {
+        if (substrIndex >= 0) {
             return (
                 <p className='capitalize'>
                     {string.slice(0, substrIndex)}
@@ -35,7 +34,7 @@ function SearchResults({media,id,name,imagePath,releaseDate,clear,textHighlight}
           <Link href={generateHref(media)||"#"}
               className='w-full h-full flex items-center justify-center'>
               <div className='w-[60px] h-full mr-2'>
-                  <Image src={`${base_url}${imagePath}`} width={1000} height={1900}/></div>
+                  <img src={`${base_url}${imagePath}`} loading='lazy' width='60px' height='60px'/></div>
               <div className='flex-col items-center justify-center flex-1 h-full'>
                   <h4 className='text-xl font-semibold text-white'>{styledSubstring(name,textHighlight) }</h4>
                   <p className='text-sm font-medium text-slate-300 capitalize'>

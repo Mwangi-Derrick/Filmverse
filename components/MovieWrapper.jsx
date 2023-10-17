@@ -1,7 +1,6 @@
 "use client"
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
 import { useSearchParams } from 'next/navigation';
 import PaginationUI from './PaginationUI';
 import { FunnelIcon } from '@heroicons/react/24/solid';
@@ -40,13 +39,14 @@ function MovieWrapper({ call,genreType}) {
             as={`/movie/${movie.id}-${movietitles[index]}`}
             className=' flex flex-col items-center justify-start
             my-1 group
-           '><div className='h-fit w-full'>
-              <Image
+           '><div className='h-fit w-full flex justify-center'>
+              <img
                 layout='responsive'
+                loading='lazy'
               src={`${baseImageUrl}${movie.poster_path}`} className='
-              lg:group-hover:scale-[1.02]  transition-all duration-700 ease-in-out 
-            select-none rounded-md
-           ' width={1000} height={1900} alt={`${movie.title}`}
+              lg:group-hover:scale-[1.02] transition-all duration-700 ease-in-out 
+            select-none rounded-md w-full
+           ' width="200px" height="300px" alt={`${movie.title}`}
             /></div><div className='w-full h-[60px] flex justify-center'>
             <p style={{ fontFamily: "Arial, Helvetica, sans-serif" }}
               className='lg:group-hover:text-brown-700 transition-colors duration-700

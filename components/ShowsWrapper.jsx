@@ -37,9 +37,10 @@ function ShowsWrapper({ fetchShows,genreType }) {
                   href={`/show/${show.id}-${showTilteUrlSegment(show.name)}`}
                   className='flex flex-col w-auto h-auto items-center justify-center m-1 group'>
                   <div className='w-full h-auto'>
-                      <Image src={`${baseImageUrl}${show.poster_path}`}
+                      <img src={`${baseImageUrl}${show.poster_path}`}
+                          loading='lazy'
                           alt=''
-                          width={1000} height={1600}
+                          width="250px" height="300px"
                       className='lg:group-hover:scale-[1.02] transition-all duration-700 ease-in-out 
                       select-none rounded-md w-full object-cover h-full'/>
                   </div><div className='w-full h-fit flex justify-center'>

@@ -2,7 +2,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/solid';
 import Link from 'next/link';
-import Image from 'next/image';
+
 
 function PeopleCarousel({people}) {
   const carouselRef = useRef(null);
@@ -93,11 +93,13 @@ function PeopleCarousel({people}) {
             href={`/person/${person.id}-${actorName(person.name)}`}
             className='mx-[5px] flex flex-col snap-end items-center justify-start h-fit
             flex-grow-0 flex-shrink-0 lg:basis-[180px] sm:max-lg:basis-[150px]'>
-            <div className='w-full h-fit'>
-              <Image src={`${baseUrl}${person.profile_path}`}
+            <div className='w-full h-full '>
+              <img src={`${baseUrl}${person.profile_path}`}
                 alt=''
-                width={1000} height={1920} className='lg:h-[250px] 
-                sm:max-lg:h-[180px] w-full
+                loading='lazy'
+                width='200px' height='300px'
+                className='lg:h-[250px] 
+                sm:max-lg:h-[180px] w-full 
                 select-none rounded-md bg-cover' />
             </div>
             <div className='w-full h-fit flex flex-col   

@@ -1,6 +1,5 @@
 "use client"
 import { FilmIcon, TvIcon } from '@heroicons/react/24/outline'
-import Image from 'next/image'
 import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
 
@@ -38,7 +37,8 @@ export default function PersonDetails({ personCredits, personInfo }) {
         <div className='w-full h-full text-white flex flex-col px-6 pt-5'>
             <section className='flex lg:flex-row sm:flex-col w-full min-h-[400px]'>
                 <div className='lg:w-[15%] sm:w-full h-fit mr-3'>
-                    <Image src={`${baseUrl}${informtion.profile_path}`}
+                    <img loading='lazy'
+                        src={`${baseUrl}${informtion.profile_path}`}
                         width={1000} height={1400} className='rounded-md' alt='' />
                 </div>
                 <article className='flex flex-col flex-1'>
@@ -56,10 +56,14 @@ export default function PersonDetails({ personCredits, personInfo }) {
                             href={ulrPath(credit)} className='h-auto w-auto flex flex-col items-end justify-end 
                              group'>
                             <div className='w-full h-auto relative flex-1 
-                              lg:group-hover:scale-[1.02] transition-transform duration-1000 ease-in-out'>
-                                <Image src={`${baseUrl}${credit.poster_path}`}
-                                width={1000} height={1500} alt='' className='h-full rounded-md
-                               w-full object-cover z-100'/>
+                              lg:group-hover:scale-[1.02] transition-transform duration-1000 ease-in-out
+                              '>
+                                <img src={`${baseUrl}${credit.poster_path}`}
+                                    loading='lazy'
+                                    width='200px'
+                                height='300px'
+                                 alt='' className='h-full rounded-md
+                               w-full object-cover z-100 '/>
                                 <i className='absolute top-0 left-0 w-[45px] 
                                 h-[25px] flex items-center justify-center bg-red-500 rounded-md'>{renderMediaIcon(credit?.media_type)}</i>
                             </div>

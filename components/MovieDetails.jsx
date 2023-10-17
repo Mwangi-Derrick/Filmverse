@@ -2,7 +2,6 @@
 import React, { useEffect, useState } from 'react'
 import { PlayCircleIcon } from "@heroicons/react/24/solid";
 import TrailerIframe from "@/components/TrailerIframe";
-import Image from 'next/image';
 import PeopleCarousel from './PeopleCarousel';
 import MovieCarousel from './MovieCarousel';
 export default function MovieDetails({details}) {
@@ -57,8 +56,9 @@ export default function MovieDetails({details}) {
       <section className='flex lg:flex-row w-[90%] h-fit sm:max-lg:items-center
          justify-around pt-7 sm:max-lg:flex-col sm:max-lg:justify-center'>
         <div className='flex flex-col lg:w-[25%] sm:max-md:w-full md:max-lg:w-[50%] '>
-          <Image src={`${img_Url}${movieInfo.poster_path}`}
-            width={300} height={90} alt=''
+          <img src={`${img_Url}${movieInfo.poster_path}`}
+            loading='lazy'
+            width='300px' height='400px' alt=''
             className='w-full lg:h-[400px] sm:max-md:h-[310px] rounded-md md:max-lg:h-[350px]' />
            <button onClick={watchTrailer}
             className='w-full h-[50px] hover:bg-neutral-900 text-neutral-900
