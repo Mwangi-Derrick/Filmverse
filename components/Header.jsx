@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useRef, useState, useContext } from "react";
 import { usePathname } from "next/navigation";
-import Image  from "next/image";
+import Image from "next/image";
 import Link from "next/link";
 import filmverse  from "../public/logo.png";
 import {
@@ -56,7 +56,8 @@ function Navbar() {
   return (
     <nav style={navbarStyles()}
       className="w-[100%] h-fit flex px-3 transition-colors duration-1000 ease-in-out
-    items-center justify-start  backdrop-blur-sm backdrop-brightness-[60%]"
+    items-center lg:justify-start backdrop-blur-sm backdrop-brightness-[60%]
+    sm:justify-between"
     >
       <div className="lg:w-[200px] mr-[10px] h-[60px] flex items-center justify-between">
         <button style={{ WebkitTapHighlightColor: "rgba(0,0,0,0)" }}
@@ -66,10 +67,10 @@ function Navbar() {
               className='h-7 w-7 relative outline-none text-white' />) :
             (<ArrowLeftIcon
               onClick={() => { setExpandSearchBox(false) }} className="h-6 w-6 relative
-              outline-none text-white"/>)
+              outline-none text-white stroke-current stroke-1"/>)
           }</button>
     <Link style={disappearStyle} href="/" >
-      <Image src={filmverse} width={200} height={60} className="sm:max-md:w-[110px]"  alt="logo"/>
+          <Image src={filmverse} width={200} height={60} className="sm:max-md:w-[110px]"  alt="logo"/>
     </Link>
   </div>
           <Searchbox setState={setSearchboxState} boxState={expandSearchBox} />
