@@ -25,7 +25,7 @@ function Footer() {
       <div className='flex w-fit h-fit items-center'>
         <p className='pr-2 text-[18px] text-slate-400'>Powered by</p>
         <Link href={'https://www.themoviedb.org'} target='_blank'>
-        <Image src={tmdbLogo} width={150} height={30}/></Link>
+        <Image src={tmdbLogo} width={150} height={30} alt="TMDB website logo"/></Link>
       </div>
       <div className='width-[90%] h-fit flex justify-center'>
         <p>&copy; {`${year} Filmverse` }</p>
