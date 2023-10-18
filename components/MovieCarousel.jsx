@@ -68,8 +68,8 @@ const possibleStartsWith = ['movies','topRated','trending','nowPlaying','popular
     <div className='text-white lg:w-[90%] sm:max-lg:w-full h-fit mx-auto flex flex-col 
     my-5'>
       <div className='px-[10px] py-2 lg:h-[60px] flex items-center justify-between
-      '><p className='lg:text-3xl font-medium capitalize'
-        >{title}</p> 
+      '><h2 className='lg:text-3xl font-medium capitalize'
+        >{title}</h2> 
         {/*conditionally render the show more link based on the starting substring value of 
         the carousel tilte ie.to render the link only for the carousels that contain movie genres */}
         {!strCondition &&(

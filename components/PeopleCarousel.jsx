@@ -66,7 +66,7 @@ function PeopleCarousel({people}) {
     <div className='text-white lg:w-[90%] sm:max-lg:w-full h-fit mx-auto flex flex-col 
     my-5'>
       <div className='px-[10px] py-2 lg:h-[60px] flex items-center justify-between
-      '><p className='lg:text-3xl font-medium capitalize'>Cast</p>
+      '><h2 className='lg:text-3xl font-medium capitalize'>Cast</h2>
       </div>
 <div className='w-full h-fit group relative'>
       {/*conditionally render the scrollbuttons based on the scrollPositon 

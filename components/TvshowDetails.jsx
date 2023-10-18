@@ -186,9 +186,9 @@ function EpisodesSection({ seasonCount, fetchData }) {
                         alt=''  />
                 </div>
                 <div className='flex flex-col items-start pl-3 justify-start w-fit h-fit'>
-                    <h3 style={{ color: showMore[index] ? "#846358" : "" }}
+                    <h2 style={{ color: showMore[index] ? "#846358" : "" }}
                         className='lg:text-xl sm:text-base font-semibold group-hover:text-brown-800'>
-                        {`${episode.episode_number}.${episode.name}`}</h3>
+                        {`${episode.episode_number}.${episode.name}`}</h2>
                     <p className='lg:text-base sm:text-sm'>{generateDateFormat(episode.air_date)}
                         <span className='ml-1'>. {episode.runtime} {!episode.runtime?"":"min" }</span>
                     </p>

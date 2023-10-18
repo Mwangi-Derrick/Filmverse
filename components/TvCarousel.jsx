@@ -65,8 +65,8 @@ function TvCarousel({ data,title,genreId }) {
     <div className='text-white lg:w-[90%] sm:w-[100%] h-fit mx-auto flex flex-col 
     my-5'>
     <div className='px-[10px] py-2 lg:h-[60px] flex items-center justify-between
-      '><p className='lg:text-3xl font-medium capitalize'
-        >{data.length > 0 ? title : ""}</p>
+      '><h2 className='lg:text-3xl font-medium capitalize'
+        >{data.length > 0 ? title : ""}</h2>
         {!startsWith && (<Link href={`/tv-shows/${urlTitleSegement}-${genreId}`} className='w-fit h-fit 
           flex items-center sm:max-lg:text-[11px] font-semibold group/genreLink'>
           Show More
