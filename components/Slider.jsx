@@ -87,10 +87,10 @@ function Slider() {
               <p>{slide.media_type === "tv" ? "TV show" : slide.media_type}.</p>
               <p>{getYear(slide)}</p>
             </div>
-            <Link href={generateLink(slide, slide.id)}>
+            <Link href={generateLink(slide, slide.id)} className="mt-3">
               <button className="lg:text-base md:text-sm sm:text-[12px]
                font-semibold md:w-[130px] sm:max-md:w-[100px] h-[35px] bg-red-500
-           mt-3 rounded-full flex items-center justify-center">Watch Now</button></Link>
+            rounded-full flex items-center justify-center">Watch Now</button></Link>
           </div>
         </div>))}
       </div>
