@@ -75,17 +75,6 @@ export default function SignIn() {
       >
         Sign in
       </button>
-       
-      <div className="flex w-full h-fit justify-between">
-        <div className="flex w-fit h-fit gap-1">
-        <p>Don't have an account?</p>
-        <Link href="sign-up" className="text-red-400">
-          Sign up
-        </Link></div>
-        <Link
-         className="text-red-400" 
-          href="forgot-password">Forgort password?</Link>
-      </div>
       <div className="flex items-center w-full justify-center gap-2">
         <span className="flex-[0.49] border-t border-t-solid border-t-slate-400"></span>
         <span className="w-fit h-fit">Or</span>
@@ -95,6 +84,16 @@ export default function SignIn() {
         <Image src={google} width={30} height={30} alt="google icon" /> Sign in
         with Google
       </button>
+      <div className="flex w-full h-fit justify-between sm:text-xs md:text-sm">
+        <div className="flex w-fit h-fit gap-1">
+        <p>Don't have an account?</p>
+        <Link href="sign-up" className="text-red-400">
+          Sign up
+        </Link></div>
+        <Link
+         className="text-red-400" 
+          href="forgot-password">Forgot password?</Link>
+      </div>
     </form>
   );
 }
