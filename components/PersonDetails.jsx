@@ -6,6 +6,7 @@ import React, { useEffect, useState } from 'react'
 export default function PersonDetails({ personCredits, personInfo }) {
     const [informtion, setInfomation] = useState(personInfo)
     const [totalCredits, setTotalCredits] = useState(personCredits)
+    console.log(typeof totalCredits)
     useEffect(() => {
         setInfomation(personInfo)
         setTotalCredits(personCredits)
@@ -21,13 +22,7 @@ export default function PersonDetails({ personCredits, personInfo }) {
         if (media.media_type === "tv")
         { return `/show/${media.id}-${media.name.replace(/\s+/g, "-")}` }
     }
-    /*The map method generates an array of ids from the movies and tv shows and puts them in the Javascript Set
-     to effectively remove any duplicate Ids that may arise,the Set then is 
-     converted back to an array using the spread operator */
-    const uniqueIds = [...new Set(totalCredits?.cast?.map((credit) => credit.id))]
-    /*map through the array of unique ids to genrate unique movies and tv shows using 
-    the array.find method which returns an element with the first instance of that id*/
-    const uniqueMedia = uniqueIds.map((id) => { return totalCredits?.cast?.find((media) => { return media.id === id }) })
+   
     const renderMediaIcon = (mediaType) => {
         if (mediaType === "movie") { return (<FilmIcon className='w-5 h-5' />) }
         else if (mediaType === "tv") { return (<TvIcon className='w-5 h-5' />) }
@@ -51,7 +46,7 @@ export default function PersonDetails({ personCredits, personInfo }) {
             <div className='flex flex-col w-full h-fit pt-3 mb-10 '>
                 <h5 className='text-2xl capitalize py-3 w-full h-fit'>{`also starring ${informtion.name}` }</h5>
             <div className='w-full h-fit grid sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-3'>
-                    {uniqueMedia && uniqueMedia.map((credit) => (
+                     {totalCredits && totalCredits?.map((credit) => (
                         <Link style={{ WebkitTapHighlightColor:"rgba(0,0,0,0)"}}
                             href={ulrPath(credit)} className='h-auto w-auto flex flex-col items-end justify-end 
                              group'>

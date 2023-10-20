@@ -19,10 +19,16 @@ export default async function page({ params }) {
     await fetch(`https://api.themoviedb.org/3/person/${personId}?api_key=${key}&append_to_response=combined_credits`,{cache:'no-store'})
    results = await personDetails.json();
   const { combined_credits, ...others } = results;
-  
+   /*The map method generates an array of ids from the movies and tv shows and puts them in the Javascript Set
+     to effectively remove any duplicate Ids that may arise,the Set then is 
+     converted back to an array using the spread operator */
+     const uniqueIds = [...new Set(combined_credits?.cast?.map((credit) => credit.id))]
+     /*map through the array of unique ids to genrate unique movies and tv shows using 
+     the array.find method which returns an element with the first instance of that id*/
+  const uniqueMedia = uniqueIds.map((id) => { return combined_credits?.cast?.find((media) => { return media.id === id }) })
   return (
       <div className='w-screen h-full'>
-      <PersonDetails personCredits={combined_credits} personInfo={others} />   
+      <PersonDetails personCredits={uniqueMedia} personInfo={others} />   
     </div>
   )
 }
