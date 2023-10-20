@@ -9,9 +9,7 @@ function PeopleCarousel({people}) {
   const [scrollButton, setScrollBtn] = useState('none');
    const cast = people?.cast?.filter((person) => person.known_for_department === "Acting").slice(0,10)
   const [actors, setActors] = useState(cast)
-  console.log(actors)
   useEffect(() => { setActors(cast) }, [people])
-  console.log(actors)
   useEffect(() => {
     const handleScrollButtons = () => {
       if (carouselRef.current) {

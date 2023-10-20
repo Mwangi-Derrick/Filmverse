@@ -25,7 +25,6 @@ export default function MovieDetails({details}) {
     Trailer = movieInfo?.videos?.results.filter((video) => video.type === "Trailer").splice(0, 1)
     initialDateFormat = movieInfo?.release_date.replace(/-/g, "/");
     dateParts = initialDateFormat.split('/');
-    console.log(typeof dateParts);
     reversedDate = `${dateParts[1]}/${dateParts[2]}/${dateParts[0]}`
     hours = Math.floor((movieInfo.runtime) / 60).toString()
   minutes = (movieInfo.runtime % 60).toString()

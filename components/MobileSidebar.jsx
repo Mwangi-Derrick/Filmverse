@@ -10,7 +10,6 @@ export default function MobileSidebar() {
     const linkStyle = {
         color: "#ef4444",
    }
-    console.log(path);
     const { Sidebarvisible, setSidebarVisible } = useContext(SidebarContext);
     // the reset function restes the sidebar state
     const reset = ()=>{setSidebarVisible(false)}

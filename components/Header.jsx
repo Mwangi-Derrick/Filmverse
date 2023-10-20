@@ -31,12 +31,9 @@ function Navbar() {
   const setSearchboxState = (state) => {
     setExpandSearchBox(state)
   }
-  console.log(Sidebarvisible)
   const disappearStyle = {
     display:expandSearchBox?"none":""
   }
-  console.log(path.split("/"))
-  console.log(scrollPstn)
   useEffect(() => {
     const updateScrollPosition = () => {
       setScrollY(window.scrollY)
@@ -160,7 +157,6 @@ const Searchbox = ({ setState, boxState }) => {
       const data = await results.json();
       const searchList = data.results;
       setSearchResults(searchList.filter((result)=>result.media_type !== "person"))
-      console.log(searchList)
       return ()=>{setSearchResults(null)}
     }
     searchData();
@@ -175,7 +171,6 @@ const Searchbox = ({ setState, boxState }) => {
     window.addEventListener("click", handeleSearchList)
     return()=>{window.removeEventListener("click",handeleSearchList)}
   }, [])
-  console.log(inputValue)
   return (<div className="flex flex-col
    h-fit w-fit items-center" >
       <section style={searchBoxWidth} ref={searchBoxRef}

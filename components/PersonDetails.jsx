@@ -6,7 +6,6 @@ import React, { useEffect, useState } from 'react'
 export default function PersonDetails({ personCredits, personInfo }) {
     const [informtion, setInfomation] = useState(personInfo)
     const [totalCredits, setTotalCredits] = useState(personCredits)
-    console.log(typeof totalCredits)
     useEffect(() => {
         setInfomation(personInfo)
         setTotalCredits(personCredits)
