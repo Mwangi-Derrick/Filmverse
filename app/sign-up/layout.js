@@ -1,11 +1,8 @@
-export default async function RootLayout({
-    children,
-  }) {
-    return (
-      <html lang="en">
-        <body className="h-screen bg-zinc-950">
-          {children}
-        </body>
-      </html>
+export default async function SignUpLayout({
+    children}) {
+  return (
+    <div>
+       {children}
+    </div>
     )
   }
