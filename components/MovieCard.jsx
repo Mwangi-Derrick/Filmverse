@@ -5,7 +5,7 @@ import placeholder from '../public/palceholder.png';
 function MovieCard({movieId,poster,movieTitle}) {
     const baseImageUrl = 'https://image.tmdb.org/t/p/w500/';
     const movietitle = `${movieTitle}`
-    const formatedTitlle = movietitle.replace(":", "").replace(/\s+/g, '-')
+    const formatedTitlle = movietitle.replace(":", "").replace(/\s+/g, '-').replace(/\//g,'')
   return (
     <Link style={{ WebkitTapHighlightColor: "rgba(0,0,0,0)" }}
       href={`/movie/${movieId}?id=${movieId}`} as={`/movie/${movieId}-${formatedTitlle}`}
@@ -17,7 +17,7 @@ function MovieCard({movieId,poster,movieTitle}) {
            ' width='200px' height='300px'
         alt={`${movieTitle}`}
               placeholder={placeholder}
-              blurDataURL={placeholder}
+              blurdataurl={placeholder}
       />
       <div className='w-[180px] h-fit flex justify-center'>
         <p className='group-hover/movie:underline pt-3 sm:max-lg:hidden truncate'>{movieTitle}</p></div>
