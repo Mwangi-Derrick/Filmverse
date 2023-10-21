@@ -3,10 +3,11 @@ let data;
 export async function generateMetadata({ params }) {
   // read route params
   const movie_params = params.movieId
-  const subtrings = movie_params.split("-")
+  const substrings = movie_params.split("-")
+  const title = substrings.slice(1, substrings.length).join(" ").replace(/\%3A/, ":").replace(/\//g,"-")
   const overview = data?.overview
   return {
-    title: `${data?.title}`,
+    title: `${title}`,
      description: `${overview}`
   }
 }

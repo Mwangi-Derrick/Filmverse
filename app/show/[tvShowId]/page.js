@@ -4,8 +4,8 @@ let TvshowsData;
 export async function generateMetadata({ params }) {
   // read route params
   const show_params = params.tvShowId
-  const subtrings = show_params.split("-")
-  const show_name = subtrings.slice(1, subtrings.length).join(" ").replace(/\%3A/,":")
+  const substrings = show_params.split("-")
+  const show_name = substrings.slice(1, substrings.length).join(" ").replace(/\%3A/,":")
   return {
     title: show_name,
     description:`${TvshowsData?.overview}`
