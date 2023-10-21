@@ -19,7 +19,7 @@ function TvShowCard({TvShow}) {
         className='aspect-[18/25]
             select-none rounded-md bg-cover'
         placeholder='blur'
-        blurDataURL='./placeholder.png'
+        blurdataurl='./placeholder.png'
         style={{
           maxWidth: "100%",
         height:"auto"}} />
