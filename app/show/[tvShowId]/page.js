@@ -39,7 +39,7 @@ async function page({ params }) {
 ...rest operator is used to include other details of the tv-show*/
   const {credits,videos,recommendations,content_ratings,...info}=TvshowsData
   return (
-    <div className='w-screen h-full'>
+    <div className='w-screen h-full pt-[60px]'>
       <TvshowDetails seasons={seasonLists} seriesInfo={info}
         fetchEpisodes={fetchSeasonEpisodes} suggestedShows={recommendations?.results}
         Tvratings={content_ratings?.results}

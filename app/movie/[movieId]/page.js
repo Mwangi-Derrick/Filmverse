@@ -13,15 +13,19 @@ export async function generateMetadata({ params }) {
      description: information?.overview
   }
 }
+const img_Url = "https://image.tmdb.org/t/p/w500/"
 async function page({ params }) {
   const idParams = (params.movieId).split("-");
   const movieId = idParams[0];
-      const key = '31893f5365efe0cdf393794446aae7a6'
+  const key = '31893f5365efe0cdf393794446aae7a6'
       const results = await
         fetch(`https://api.themoviedb.org/3/movie/${movieId}?api_key=${key}&append_to_response=videos,credits,recommendations`)
      const data = await results.json();
   return (
-    <div>
+    <div className="w-screen h-full bg-no-repeat bg-cover bg-center" style={{
+      backgroundImage: `
+         url(${img_Url}${data.backdrop_path})`
+    }}>
       <MovieDetails details={data} />
       </div>
   )

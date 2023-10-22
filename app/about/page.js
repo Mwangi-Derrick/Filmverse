@@ -7,9 +7,9 @@ export default function page() {
   
   return (
     <div 
-      className='flex flex-col items-center pt-[40px]
+      className='flex flex-col items-center pt-[30px]
     justify-start text-white flex-1'>
-      <article className='w-[90%] h-fit'>
+      <article className='w-[90%] h-fit pt-[80px]'>
         <h1 className='lg:text-3xl sm:text-xl pb-4 font-semibold'>About Us</h1>
       <p className='lg:text-xl sm:text-sm'>Welcome to Fimverse - your ultimate destination for all things movies and TV shows.
         We're passionate about entertainment, and our mission

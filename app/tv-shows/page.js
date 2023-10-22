@@ -35,7 +35,7 @@ async function page() {
 
   return (
     <div className='flex flex-col relative items-center justify-center 
-    lg:pl-[80px] w-screen h-full'>
+    lg:pl-[80px] w-screen h-full pt-[60px]'>
         <Sidebar />
       {tvShowGenres.map((genre) => (<TvCarousel data={tvShows[genre.name]}
         title={genre.name} key={genre.id} genreId={genre.id} />))}

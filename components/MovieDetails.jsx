@@ -42,15 +42,9 @@ export default function MovieDetails({details}) {
   }
   return (movieInfo && (
           <div 
-    style={{
-      backgroundImage: `linear-gradient(to top, rgba(0, 0, 0, 1),
-        rgba(0,0,0,0.9),rgba(0,0,0,0.8), rgba(0, 0, 0, 1)), 
-         url(${img_Url}${movieInfo.backdrop_path})`
-    }}
       className='flex items-center text-white h-full w-full flex-col
-       justify-start bg-no-repeat bg-cover aspect-square bg-center relative
-       pt-12
-       top-[-60px]
+       justify-start bg-neutral-950 bg-opacity-70 backdrop-blur-sm backdrop-brightness-[60%] 
+       pt-12 pb-[60px] 
         '>
       <section className='flex lg:flex-row w-[90%] h-fit sm:max-lg:items-center
          justify-around pt-7 sm:max-lg:flex-col sm:max-lg:justify-center'>
@@ -58,13 +52,13 @@ export default function MovieDetails({details}) {
           <img src={`${img_Url}${movieInfo.poster_path}`}
             loading='lazy'
             width='300px' height='400px' alt=''
-            className='w-full lg:h-[400px] sm:max-md:h-[310px] rounded-md md:max-lg:h-[350px]' />
+            className='w-full aspect-[171/200] rounded-md' />
            <button onClick={watchTrailer}
             className='w-full h-[50px] hover:bg-neutral-900 text-neutral-900
               text-lg font-semibold flex items-center justify-center
             hover:text-red-500 transition-colors duration-700
             my-[20px] rounded-md
-            sm:max-lg:h-[35px]
+            sm:max-lg:h-[40px]
            bg-red-500'><PlayCircleIcon className="h-5 w-5 mx-1" /> Play Trailer</button>
         </div>
         <div className='flex flex-col lg:w-[70%] sm:max-lg:items-start sm:max-lg:w-full'>

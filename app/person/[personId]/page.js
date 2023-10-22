@@ -29,7 +29,7 @@ export default async function page({ params }) {
      the array.find method which returns an element with the first instance of that id*/
   const uniqueMedia = uniqueIds.map((id) => { return combined_credits?.cast?.find((media) => { return media.id === id }) })
   return (
-      <div className='w-screen h-full'>
+      <div className='w-screen h-full pt-[60px]'>
       <PersonDetails personCredits={uniqueMedia} personInfo={others} />   
     </div>
   )

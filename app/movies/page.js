@@ -33,7 +33,7 @@ async function Movies() {
   return (
     <div
       className="w-screen min-h-screen relative flex flex-col items-center justify-center
-      lg:pl-[80px]
+      lg:pl-[80px] pt-[60px]
     "
     >
     <Sidebar />

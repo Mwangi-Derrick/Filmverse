@@ -16,7 +16,7 @@ export default function RootLayout({ children }) {
           <Header />
           <MobileSidebar />
         </MobileSidebarContextProvider>
-        <main className="w-screen h-full min-h-screen pt-[60px] pb-[10px]">
+        <main className="w-screen h-full min-h-screen">
           {children}
         </main>
         <Footer />
