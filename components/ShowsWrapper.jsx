@@ -21,7 +21,7 @@ function ShowsWrapper({ fetchShows,genreType }) {
       return  name.replace(/\s+/g,"-")
     }
   return (
-      <div className='flex flex-col'>
+      <div className='flex flex-col pt-[60px]'>
           <div className='w-full h-fit flex items-center justify-between px-5'>
               <h1 className='flex items-center w-fit h-5 py-6 text-3xl font-medium
     sm:max-lg:text-xl 

@@ -22,7 +22,7 @@ function MovieWrapper({ call,genreType}) {
    movietitles = movies.map((item)=>(item.title).replace(":","").replace(/\s+/g,'-'))
   }
   return (
-    <div className='w-full h-full flex flex-col items-center justify-center'>
+    <div className='w-full h-full flex flex-col items-center justify-center pt-[60px]'>
       <div className='w-full h-fit flex items-center justify-between px-5'>
               <h1 className='flex items-center w-fit h-5 py-6 text-3xl font-medium
     sm:max-lg:text-xl pr-9
