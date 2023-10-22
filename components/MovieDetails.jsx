@@ -44,7 +44,7 @@ export default function MovieDetails({details}) {
           <div 
       className='flex items-center text-white h-full w-full flex-col
        justify-start bg-neutral-950 bg-opacity-70 backdrop-blur-sm backdrop-brightness-[60%] 
-       pt-12 pb-[60px] 
+       pt-12 pb-[60px] relative
         '>
       <section className='flex lg:flex-row w-[90%] h-fit sm:max-lg:items-center
          justify-around pt-7 sm:max-lg:flex-col sm:max-lg:justify-center'>
