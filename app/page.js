@@ -1,7 +1,10 @@
 import MovieCarousel from "@/components/MovieCarousel";
 import Slider from "@/components/Slider";
 import TvCarousel from "@/components/TvCarousel";
-
+export const metadata = {
+  title: "Filmverse",
+  description: "Welcome to Fimverse - your ultimate destination for all things movies and TV shows."
+};
 export default async function Home() {
   const Key = "31893f5365efe0cdf393794446aae7a6"
   const delay = (ms)=>{new Promise((resolve)=>setTimeout(resolve,ms))}

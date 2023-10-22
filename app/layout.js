@@ -4,11 +4,6 @@ import "./globals.css";
 import { MobileSidebarContextProvider } from "./mobilesidebar_context";
 import MobileSidebar from "@/components/MobileSidebar";
 
-export const metadata = {
-  title: "Filmverse",
-  description: "Welcome to Fimverse - your ultimate destination for all things movies and TV shows."
-};
-
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
