@@ -1,14 +1,17 @@
 import TvshowDetails from '@/components/TvshowDetails'
 import React from 'react'
-let TvshowsData;
+
 export async function generateMetadata({ params }) {
   // read route params
   const show_params = params.tvShowId
   const substrings = show_params.split("-")
-  const show_name = substrings.slice(1, substrings.length).join(" ").replace(/\%3A/,":")
+  const show_id = substrings[0];
+  const Key="31893f5365efe0cdf393794446aae7a6"
+  const details = await fetch(`https://api.themoviedb.org/3/tv/${show_id}?api_key=${Key}`)
+  const { name, overview } = await details.json();
   return {
-    title: show_name,
-    description:`${TvshowsData?.overview}`
+    title: name,
+    description: overview
   }
 }
 
@@ -26,7 +29,7 @@ async function page({ params }) {
   
   const results = await
     fetch(`https://api.themoviedb.org/3/tv/${ShowId}?api_key=${Key}&append_to_response=videos,credits,recommendations,content_ratings`, { cache: 'no-store' });
-    TvshowsData = await results.json();
+    const TvshowsData = await results.json();
 
     //use the series data to get the total number of seasons
     const totalSeasons = TvshowsData?.number_of_seasons
