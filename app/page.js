@@ -1,9 +1,13 @@
 import MovieCarousel from "@/components/MovieCarousel";
 import Slider from "@/components/Slider";
 import TvCarousel from "@/components/TvCarousel";
+
 export const metadata = {
   title: "Filmverse",
-  description: "Welcome to Fimverse - your ultimate destination for all things movies and TV shows."
+  description: "Welcome to Fimverse - your ultimate destination for all things movies and TV shows.",
+  verification: {
+    google: 'euP_dx0l9iE88LDwynLu_fqcNp12zWT1lB_dhOHX69M',
+  }
 };
 export default async function Home() {
   const Key = "31893f5365efe0cdf393794446aae7a6"
