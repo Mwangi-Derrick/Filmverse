@@ -3,7 +3,10 @@ import { FilmIcon, TvIcon } from "@heroicons/react/24/outline";
 import { ChevronDownIcon, ChevronUpIcon } from "@heroicons/react/24/solid";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
-
+import instagram from '../../../public/socials/instagram-color.svg'
+import x from '../../../public/socials/x.svg'
+import facebook from '../../../public/socials/facebook-color.svg'
+import youtube from '../../../public/socials/youtube-color.svg'
 export default function PersonDetails({ personCredits, personInfo }) {
   const [info, setInfo] = useState(personInfo);
   const [totalCredits, setTotalCredits] = useState(personCredits);
@@ -34,7 +37,7 @@ export default function PersonDetails({ personCredits, personInfo }) {
       return <FilmIcon className="w-5 h-5" />;
     } else if (mediaType === "tv") {
       return <TvIcon className="w-5 h-5" />;
-    } else {
+    } else { 
       return "";
     }
   };
