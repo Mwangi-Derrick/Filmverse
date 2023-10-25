@@ -66,9 +66,6 @@ export default function PersonDetails({ personCredits, personInfo,externalIds })
     }
 )
   }
-  console.log(externalIdentities)
-  console.log(availableIdentiies)
-  console.log(renderSocialIcons(availableIdentiies))
 
   return (
     <div className="w-full h-full text-white flex flex-col px-12 pt-12">
