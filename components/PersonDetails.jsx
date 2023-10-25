@@ -75,7 +75,7 @@ export default function PersonDetails({ personCredits, personInfo }) {
               toggleShowMore((prev) => !prev);
             }}
                               className="inline-flex gap-1 items-center 
-            hover:text-white font-medium w-fit h-fit text-red-400 cursor-pointer"
+            lg:hover:text-white font-medium w-fit h-fit text-red-400 cursor-pointer"
           >
             {showMore === false ? "More" : "Less"}
             {showMore  === false ? (
