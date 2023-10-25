@@ -3,17 +3,17 @@ import { FilmIcon, TvIcon } from "@heroicons/react/24/outline";
 import { ChevronDownIcon, ChevronUpIcon } from "@heroicons/react/24/solid";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
-import instagram from '../../../public/socials/instagram-color.svg'
-import x from '../../../public/socials/x.svg'
-import facebook from '../../../public/socials/facebook-color.svg'
-import youtube from '../../../public/socials/youtube-color.svg'
-export default function PersonDetails({ personCredits, personInfo }) {
+import { FaInstagram, FaFacebook, FaYoutube,FaTiktok } from 'react-icons/fa';
+import {FaXTwitter} from 'react-icons/fa6'
+export default function PersonDetails({ personCredits, personInfo,externalIds }) {
   const [info, setInfo] = useState(personInfo);
+  const [ids,setIds]= useState(externalIds)
   const [totalCredits, setTotalCredits] = useState(personCredits);
   useEffect(() => {
     setInfo(personInfo);
     setTotalCredits(personCredits);
-  }, [personCredits, personInfo]);
+    setIds(externalIds)
+  }, [personCredits, personInfo,externalIds]);
 
   const name = (media) => {
     if (media.media_type === "movie") {
@@ -53,9 +53,27 @@ export default function PersonDetails({ personCredits, personInfo }) {
       </p>
     ));
   }
+  const externalIdentities = Object.entries(ids).slice(5);
+  const availableIdentiies = externalIdentities.filter(([key, value]) => (value !== "" && value !== null))
+  const renderSocialIcons = (array) => {
+   return array.map(([key, value]) => {
+     if (key === 'facebook_id') { return <Link key={key} href={`https://www.facebook.com/${value}`}><FaFacebook size='30px'/></Link> }
+      else if (key === 'instagram_id') { return <Link key={key} href={`https://www.instagram.com/${value}`}><FaInstagram size='30px'/></Link> }
+      else if (key === 'tiktok_id'){return <Link key={key} href={`https:///www.tiktok.com/${value}`}><FaTiktok size='30px'/></Link> }
+      else if (key === 'twitter_id') { return <Link key={key} href={`https://www.twitter.com/${value}`}><FaXTwitter size='30px'/></Link> }
+      else if (key === 'youtube_id') { return <Link key={key} href={`https://www.youtube.com/${value}`}><FaYoutube size='30px'/></Link> }
+      else {return null}
+    }
+)
+  }
+  console.log(externalIdentities)
+  console.log(availableIdentiies)
+  console.log(renderSocialIcons(availableIdentiies))
+
   return (
     <div className="w-full h-full text-white flex flex-col px-12 pt-12">
       <section className="flex lg:flex-row sm:flex-col w-full min-h-[400px] gap-5 sm:max-lg:items-center">
+        <div className="flex flex-col items-center gap-7">
         <div className="h-fit w-fit mr-3">
           <img
             loading="lazy"
@@ -65,7 +83,9 @@ export default function PersonDetails({ personCredits, personInfo }) {
             className="rounded-full w-[300px] aspect-square"
             alt={`${info.name}`}
           />
-        </div>
+          </div>
+          <div className="w-fit h-fit gap-3 flex">{renderSocialIcons(availableIdentiies)}</div>
+          </div>
         <article className="flex flex-col flex-1 ">
           <h1 className="text-4xl font-semibold w-fit h-fit pb-5 sm:max-lg:py-2">
             {info.name}
