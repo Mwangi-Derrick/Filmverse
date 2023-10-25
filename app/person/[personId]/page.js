@@ -19,8 +19,8 @@ export default async function page({ params }) {
     const personId = path.split("-")[0]
     const key = "31893f5365efe0cdf393794446aae7a6"
     const personDetails = 
-    await fetch(`https://api.themoviedb.org/3/person/${personId}?api_key=${key}&append_to_response=combined_credits`,{cache:'no-store'})
-    const { combined_credits, ...others }  = await personDetails.json();
+    await fetch(`https://api.themoviedb.org/3/person/${personId}?api_key=${key}&append_to_response=combined_credits,external_ids`,{cache:'no-store'})
+    const { combined_credits,external_ids, ...others }  = await personDetails.json();
    /*The map method generates an array of ids from the movies and tv shows and puts them in the Javascript Set
      to effectively remove any duplicate Ids that may arise,the Set then is 
      converted back to an array using the spread operator */
@@ -30,7 +30,7 @@ export default async function page({ params }) {
   const uniqueMedia = uniqueIds.map((id) => { return combined_credits?.cast?.find((media) => { return media.id === id }) })
   return (
       <div className='w-screen h-full pt-[60px]'>
-      <PersonDetails personCredits={uniqueMedia} personInfo={others} />   
+      <PersonDetails personCredits={uniqueMedia} externalIds={external_ids} personInfo={others} />   
     </div>
   )
 }
