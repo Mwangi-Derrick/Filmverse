@@ -12,15 +12,24 @@ function TvshowDetails({ seriesInfo, seasons, fetchEpisodes,suggestedShows,video
     const [recommedations,setRecommedations] = useState(suggestedShows)
     const [details, setDetails] = useState(seriesInfo);
     const [episodes, setDetailSection] = useState(true);
-    const trailers = videos.filter((video)=>(video.site==="YouTube"&&video.type==="Trailer")).slice(0,1)
-    const [trailer, setTrailer] = useState(trailers)
+    const [totalVideos, setVideos] = useState(videos)
+    const trailer = totalVideos.filter((video) => (video.site === "YouTube" && video.type === "Trailer")).slice(0, 1)[0];
+    const TvShowVideos = totalVideos.filter((video) => (video.site === "YouTube"));
     const [showTrailer, setShowTrailer] = useState(false);
     const [ratings, setRatings] = useState(Tvratings)
+    //state to store video embedd
+    const [videoEmbedd, setVideoEmbedd] = useState(trailer);
+    const updateVideoEmbedd = (video)=> {
+        setVideoEmbedd(video);
+    }
     const USArating = ratings?.filter((rating)=>rating.iso_3166_1==="US")[0]
      const creators = details?.created_by
-     console.log(details)
-    console.log(creators)
     const watchTrailer = () => {
+        setShowTrailer(true)
+        setVideoEmbedd(trailer)
+    }
+    //the watchVideo function will be passed as a prop to the Media component
+    const watchVideo = () => {
         setShowTrailer(true)
     }
     const onCloseTrailer = () => {
@@ -29,9 +38,9 @@ function TvshowDetails({ seriesInfo, seasons, fetchEpisodes,suggestedShows,video
     useEffect(() => {
         setDetails(seriesInfo)
         setRecommedations(suggestedShows)
-        setTrailer(trailer)
+        setVideos(videos)
         setRatings(Tvratings)
-    }, [seriesInfo,suggestedShows,trailers,Tvratings]);
+    }, [seriesInfo,suggestedShows,totalVideos,Tvratings]);
     const AirDate = details.first_air_date
     const FirstYearAired = AirDate.split("-")[0]
     const genres = details.genres?.map((genre, index) => (<p key={index}>
@@ -104,7 +113,8 @@ function TvshowDetails({ seriesInfo, seasons, fetchEpisodes,suggestedShows,video
           </div>
           <PeopleCarousel people={showCredits} />
           <TvCarousel data={recommedations} title='you may also like...' />
-          <TrailerIframe TrailerId={trailer[0]?.key} YTtrailer={showTrailer} onClose={onCloseTrailer} />
+          <Media updateVideo={updateVideoEmbedd} showVideo={watchVideo} videos={TvShowVideos} />
+          <TrailerIframe TrailerId={videoEmbedd?.key} YTtrailer={showTrailer} onClose={onCloseTrailer} />
     </div>
   )
 }
@@ -123,12 +133,10 @@ function EpisodesSection({ seasonCount, fetchData }) {
     useEffect(() => {
         let controller;
         async function receiveEpisodes() {
-             controller = new AbortController();
-            const episodes = await fetchData(Currentseason,{signal:controller.signal})
+            const episodes = await fetchData(Currentseason)
             setEpisodes(episodes)
         }
         receiveEpisodes()
-        return () => controller.abort();
     }, [Currentseason])
 
     function generateDateFormat(input) {
@@ -163,7 +171,6 @@ function EpisodesSection({ seasonCount, fetchData }) {
         </div>
    
         </div>
-        <Suspense fallback={<LoadingSkeleton/>}>
     <div className="flex flex-col-reverse mt-3 lg:w-[80%] sm:w-[100%] h-fit divide-y divide-y-reverse
  divide-solid divide-slate-400 min-h-[100px]">
         {episodeData && episodeData.map((episode, index) =>
@@ -199,7 +206,6 @@ function EpisodesSection({ seasonCount, fetchData }) {
             </p>
         </article>))}
     </div> 
-        </Suspense>
 </section>)
 }
 function InformationSection({ credits,genreNames,creators }) {
