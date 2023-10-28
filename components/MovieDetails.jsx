@@ -10,8 +10,8 @@ export default function MovieDetails({details}) {
     useEffect(() => { setInfo(details) }, [details])
   let hours=""
   let minutes=""
-  let cast = undefined;
-  let directors = undefined;
+  let cast;
+  let directors;
   let Trailer;
   let initialDateFormat;
   let reversedDate;
@@ -19,10 +19,10 @@ export default function MovieDetails({details}) {
   if (movieInfo && movieInfo.release_date) {
     cast = movieInfo?.credits?.cast.slice(0,5)
     directors = movieInfo?.credits?.crew.
-      filter((person) => person.known_for_department === "Directing").splice(0, 5)
+      filter((person) => person.known_for_department === "Directing").slice(0, 5)
     //remove any duplicate names that may arise using the javaScript Set object
     directors = [...new Set(directors?.map((person) => person.name))]
-    Trailer = movieInfo?.videos?.results.filter((video) => video.type === "Trailer").splice(0, 1)
+    Trailer = movieInfo?.videos?.results.filter((video) => video.type === "Trailer").slice(0, 1)
     initialDateFormat = movieInfo?.release_date.replace(/-/g, "/");
     dateParts = initialDateFormat.split('/');
     reversedDate = `${dateParts[1]}/${dateParts[2]}/${dateParts[0]}`
@@ -44,7 +44,7 @@ export default function MovieDetails({details}) {
           <div 
       className='flex items-center text-white h-full w-full flex-col
        justify-start bg-neutral-950 bg-opacity-70 backdrop-blur-sm backdrop-brightness-[60%] 
-       pt-12 pb-[60px] relative
+       pt-12 pb-[60px] relative 
         '>
       <section className='flex lg:flex-row w-[90%] h-fit sm:max-lg:items-center
          justify-around pt-7 sm:max-lg:flex-col sm:max-lg:justify-center'>
@@ -162,7 +162,7 @@ export default function MovieDetails({details}) {
           {movieInfo && (<PeopleCarousel people={ movieInfo?.credits} />)}
       {movieInfo.recommendations?.results?.length>0 &&
         <MovieCarousel data={movieInfo.recommendations.results} title={`movies like ${movieInfo.title}`} />} 
-          {Trailer?.length>0 && (<TrailerIframe TrailerId={Trailer[0].key} onClose={closeTrailer} YTtrailer={YTtrailer} />)}
+         <TrailerIframe TrailerId={Trailer[0].key} onClose={closeTrailer} YTtrailer={YTtrailer} />
       </div>
   )
   )
