@@ -10,7 +10,7 @@ function MovieCard({movieId,poster,movieTitle}) {
     <Link style={{ WebkitTapHighlightColor: "rgba(0,0,0,0)" }}
       href={`/movie/${movieId}?id=${movieId}`} as={`/movie/${movieId}-${formatedTitlle}`}
             className='mx-[5px] flex flex-col snap-end items-center justify-start h-fit
-           flex-grow-0 flex-shrink-0 lg:basis-[180px] sm:max-lg:basis-[150px] group/movie'> 
+           flex-grow-0 flex-shrink-0 lg:w-[180px] sm:w-[120px] md:w-[150px] aspect-[18/25] group/movie'> 
             <img src={`${baseImageUrl}${poster}`} className='lg:h-[250px] 
              aspect-[18/25]
             select-none rounded-md bg-cover

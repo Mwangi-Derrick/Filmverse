@@ -9,8 +9,8 @@ function TvShowCard({TvShow}) {
   return (
     <Link style={{ WebkitTapHighlightColor:"rgba(0,0,0,0)"}}
       href={`/show/${TvShow.id}-${showTitle}`} 
-      className='mx-[5px] flex flex-col snap-end items-center justify-start h-fit 
-      flex-grow-0 flex-shrink-0 lg:basis-[180px] sm:max-lg:basis-[150px] group/card'>
+      className='mx-[5px] flex flex-col snap-end items-center justify-start 
+      flex-grow-0 flex-shrink-0  sm:w-[120px] md:w-[150px] lg:w-[180px] aspect-[18/25] group/card'>
           <img width="200px" height="300px"
         src={`${baseImageUrl}${TvShow.poster_path}`}
         alt={`${TvShow.title}`}
@@ -23,7 +23,7 @@ function TvShowCard({TvShow}) {
         style={{
           maxWidth: "100%",
         height:"auto"}} />
-      <div className='w-[180px] h-fit flex justify-center'>
+      <div className='sm:w-[120px] md:w-[150px] lg:w-[180px] h-fit flex justify-center'>
         <p className='group-hover/card:underline pt-3 sm:max-lg:hidden truncate'>{TvShow.name}</p></div>
     </Link>
   )

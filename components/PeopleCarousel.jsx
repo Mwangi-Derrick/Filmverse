@@ -86,24 +86,25 @@ function PeopleCarousel({people}) {
       )}
       <div 
         className='flex flex-row w-[100%] h-fit lg:overflow-x-hidden overflow-y-hidden 
-        px-[5px] items-start justify-start snap-x snap-mandatory no-scrollbar ' ref={carouselRef}>
+        gap-2 px-5 items-start justify-start snap-x snap-mandatory no-scrollbar ' ref={carouselRef}>
           {actors && actors.map((person) => (<Link style={{ WebkitTapHighlightColor:"rgba(0,0,0,0)"}}
             href={`/person/${person.id}-${actorName(person.name)}`}
-            className='mx-[5px] flex flex-col snap-end items-center justify-start h-fit
-            flex-grow-0 flex-shrink-0 lg:basis-[180px] sm:max-lg:basis-[150px]'>
-            <div className='w-full h-full '>
+            className='flex flex-col snap-end items-center justify-start h-fit w-fit
+            flex-grow-0 flex-shrink-0 '>
+            <div className='sm:w-[120px] md:w-[150px] lg:w-[180px] aspect-[18/25] '>
               <img src={`${baseUrl}${person.profile_path}`}
                 alt=''
                 loading='lazy'
                 width='200px' height='300px'
-                className='lg:h-[250px] 
-                sm:max-lg:h-[180px] w-full 
+                className='w-full 
                 select-none rounded-md bg-cover' />
             </div>
-            <div className='w-full h-fit flex flex-col   
-            items-center justify-center truncate'>
-              <p className='font-semibold w-full h-fit flex justify-center'>{person.name}</p>
-              <div className='w-[180px] h-fit flex justify-center'>
+            <div className='h-fit flex flex-col   
+            items-center justify-center'>
+               <div className='sm:w-[120px] md:w-[150px] lg:w-[180px] h-fit flex justify-center'>
+                <p className='font-semibold  truncate'>{person.name}</p>
+              </div>
+              <div className='sm:w-[120px] md:w-[150px] lg:w-[180px] h-fit flex justify-center'>
                 <p className='font-light italic truncate'>{person.character}</p>
               </div>
             </div>
