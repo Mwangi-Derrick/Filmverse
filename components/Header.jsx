@@ -44,11 +44,11 @@ function Navbar() {
   const navbarStyles = () => {
      //This variable stores the pathname as string movies or movie when the user is in the movies and movie route respectively
    const movieOrmovies = path.split("/")[1]
-    if (path === "/" && scrollPstn > 450) { return { backgroundColor: "#171717" } }
-    else if (movieOrmovies === "movie" && scrollPstn > 400) { return { backgroundColor: "#171717" } }
-    else if (path.startsWith("/show") && scrollPstn > 400) { return { backgroundColor: "#171717" } }
+    if (path === "/" && scrollPstn > 450) { return { backgroundColor: "#0c0a09" } }
+    else if (movieOrmovies === "movie" && scrollPstn > 400) { return { backgroundColor: "#0c0a09" } }
+    else if (path.startsWith("/show") && scrollPstn > 400) { return { backgroundColor: "#0c0a09" } }
     else if (path === "/" || movieOrmovies === "movie" || path.startsWith("/show") && scrollPstn < 400){return {backgroundColor:"transparent"}}
-    else{return {backgroundColor:"#171717"}}
+    else{return {backgroundColor:"#0c0a09"}}
   }
   return (
     <nav style={navbarStyles()}
@@ -174,7 +174,7 @@ const Searchbox = ({ setState, boxState }) => {
   return (<div className="flex flex-col
    h-fit w-fit items-center" >
       <section style={searchBoxWidth} ref={searchBoxRef}
-        className="bg-neutral-800 flex items-center justify-between h-[40px] sm:w-[40px] lg:w-[380px] 
+        className="bg-neutral-900 flex items-center justify-between h-[40px] sm:w-[40px] lg:w-[380px] 
     lg:rounded-md sm:rounded-full bg-opacity-60 backdrop-blur-sm
     border-neutral-700 lg:mx-[40px] sm:mx-[10px] lg:px-4 relative">
       <button style={{ WebkitTapHighlightColor:"rgba(0,0,0,0)"}}
