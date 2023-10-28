@@ -25,6 +25,13 @@
 }
 @layer utilities {
   @layer responsive {
+    .carousel-scrollbar::-webkit-scrollbar{
+      width: 5px;
+    }
+    .carousel-scrollbar::-webkit-scrollbar-thumb{
+      background: #888; 
+  border-radius:30px;
+    }
     /* Hide scrollbar for Chrome, Safari, and Opera */
     .no-scrollbar::-webkit-scrollbar {
       display: none;
