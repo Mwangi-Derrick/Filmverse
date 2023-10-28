@@ -9,12 +9,11 @@ function Footer() {
     { name: 'about', href: '/about' },
     {name:'watchlist',href:'/watchlist'}
   ]
-  const date = new Date();
-  const year = date.getFullYear();
+  
   const tmdbLogo = "https://www.themoviedb.org/assets/2/v4/logos/v2/blue_short-8e7b30f73a4020692ccca9c88bafe5dcb6f8a62a4c6bc55cd9ba82bb2cd95f6c.svg";
   return (
     <footer className='w-screen h-fit flex flex-col items-center justify-center
-     bg-neutral-900 z-10 bg-opacity-80
+    bg-neutral-900 z-10 bg-opacity-80
      gap-1 py-5
      text-white'>
       <div className='w-full h-fit flex justify-center uppercase gap-2'>
@@ -28,7 +27,7 @@ function Footer() {
         <Image src={tmdbLogo} width={150} height={30} alt="TMDB website logo"/></Link>
       </div>
       <div className='width-[90%] h-fit flex justify-center'>
-        <p>&copy; {`${year} Filmverse` }</p>
+        <p>&copy; {`${new Date().getFullYear()} Filmverse` }</p>
       </div>
     </footer>
   )
