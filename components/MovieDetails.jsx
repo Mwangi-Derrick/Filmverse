@@ -4,31 +4,31 @@ import { PlayCircleIcon } from "@heroicons/react/24/solid";
 import TrailerIframe from "@/components/TrailerIframe";
 import PeopleCarousel from './PeopleCarousel';
 import MovieCarousel from './MovieCarousel';
-export default function MovieDetails({details}) {
-    const [movieInfo, setInfo] = useState(null)
+import Media from './Media';
+export default function MovieDetails({topLevelDetails,movieRecommendtaions,movieCredits,movieVideos}) {
+  const [movieInfo, setInfo] = useState(topLevelDetails)
+  const [credits, setCredits] = useState(movieCredits)
+  const [videos, setVideos] = useState(movieVideos)
+  const[recommendations,setRecommedations]= useState(movieRecommendtaions)
     const img_Url = "https://image.tmdb.org/t/p/w500/"
-    useEffect(() => { setInfo(details) }, [details])
-  let hours=""
-  let minutes=""
-  let cast;
-  let directors;
-  let Trailer;
-  let initialDateFormat;
-  let reversedDate;
-  let dateParts;
-  if (movieInfo && movieInfo.release_date) {
-    cast = movieInfo?.credits?.cast.slice(0,5)
-    directors = movieInfo?.credits?.crew.
+  useEffect(() => {
+    setInfo(topLevelDetails)
+    setRecommedations(movieRecommendtaions)
+    setCredits(movieCredits)
+    setVideos(movieVideos)
+  }, [topLevelDetails,movieVideos,movieRecommendtaions,movieCredits])
+   const cast = credits?.cast.slice(0,5)
+   const  directors = credits?.crew.
       filter((person) => person.known_for_department === "Directing").slice(0, 5)
     //remove any duplicate names that may arise using the javaScript Set object
-    directors = [...new Set(directors?.map((person) => person.name))]
-    Trailer = movieInfo?.videos?.results.filter((video) => video.type === "Trailer").slice(0, 1)
-    initialDateFormat = movieInfo?.release_date.replace(/-/g, "/");
-    dateParts = initialDateFormat.split('/');
-    reversedDate = `${dateParts[1]}/${dateParts[2]}/${dateParts[0]}`
-    hours = Math.floor((movieInfo.runtime) / 60).toString()
-  minutes = (movieInfo.runtime % 60).toString()
-  }
+    const uniqueDirectors = [...new Set(directors?.map((person) => person.name))]
+    const Trailer = videos?.results.filter((video) => video.type === "Trailer").slice(0, 1)
+   const  initialDateFormat = movieInfo?.release_date
+    const dateParts = initialDateFormat.split('-');
+    const reversedDate = `${dateParts[1]}/${dateParts[2]}/${dateParts[0]}`
+   const  hours = Math.floor((movieInfo.runtime) / 60).toString()
+ const  minutes = (movieInfo.runtime % 60).toString()
+  
   const runtime = `${hours}${hours>1?"hrs":"hr"} ${minutes}min`
   /*add a usestate hook to handle the trailer 
   view functionality whenever a user clicks the watch trailer button*/
@@ -40,7 +40,7 @@ export default function MovieDetails({details}) {
   const closeTrailer = () => {
     setTrailer(false)
   }
-  return (movieInfo && (
+  return (
           <div 
       className='flex items-center text-white h-full w-full flex-col
        justify-start bg-neutral-950 bg-opacity-70 backdrop-blur-sm backdrop-brightness-[60%] 
@@ -106,10 +106,10 @@ export default function MovieDetails({details}) {
                 }
               </ul>
               <ul className='ml-5'>
-                {directors?.length > 0 && <p className='text-base lg:text-base sm:max-lg:text-sm
-               font-semibold'>{directors?.length > 1 ? "Directors" : "Director"}</p>}
+                {uniqueDirectors?.length > 0 && <p className='text-base lg:text-base sm:max-lg:text-sm
+               font-semibold'>{uniqueDirectors?.length > 1 ? "Directors" : "Director"}</p>}
                 {
-                  directors?.map((person) => (
+                  uniqueDirectors?.map((person) => (
                     <li className="sm:max-lg:text-[13px] lg:text-[15px] "
                       key={person} >{person}</li>
                   ))
@@ -159,11 +159,11 @@ export default function MovieDetails({details}) {
           </article>
         </div>
           </section>  
-          {movieInfo && (<PeopleCarousel people={ movieInfo?.credits} />)}
-      {movieInfo.recommendations?.results?.length>0 &&
-        <MovieCarousel data={movieInfo.recommendations.results} title={`movies like ${movieInfo.title}`} />} 
+      {movieInfo && (<PeopleCarousel people={credits} />)}
+      {videos.results.length>0(<Media/>)}
+      {recommendations?.results?.length>0 &&
+        <MovieCarousel data={recommendations.results} title={`movies like ${movieInfo.title}`} />} 
          <TrailerIframe TrailerId={Trailer[0].key} onClose={closeTrailer} YTtrailer={YTtrailer} />
       </div>
-  )
   )
 }
