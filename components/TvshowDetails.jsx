@@ -112,8 +112,8 @@ function TvshowDetails({ seriesInfo, seasons, fetchEpisodes,suggestedShows,video
               }
           </div>
           <PeopleCarousel people={showCredits} />
-          <TvCarousel data={recommedations} title='you may also like...' />
           <Media updateVideo={updateVideoEmbedd} showVideo={watchVideo} videos={TvShowVideos} />
+          <TvCarousel data={recommedations} title='you may also like...' />
           <TrailerIframe TrailerId={videoEmbedd?.key} YTtrailer={showTrailer} onClose={onCloseTrailer} />
     </div>
   )
