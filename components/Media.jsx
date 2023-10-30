@@ -2,9 +2,6 @@ import { PlayIcon } from '@heroicons/react/24/solid'
 import React from 'react'
 
 function Media({ videos,updateVideo ,showVideo}) {
-  console.log(videos)
-  
-  console.log(showVideo)
   const showVideoIframe = (video) => {
     showVideo();
     updateVideo(video);
