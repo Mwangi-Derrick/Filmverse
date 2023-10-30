@@ -86,7 +86,7 @@ function PeopleCarousel({people}) {
       )}
       <div 
         className='flex flex-row w-[100%] h-fit lg:overflow-x-hidden overflow-y-hidden 
-        gap-2 px-5 items-start justify-start snap-x snap-mandatory no-scrollbar ' ref={carouselRef}>
+        gap-2 items-start justify-start snap-x snap-mandatory no-scrollbar ' ref={carouselRef}>
           {actors && actors.map((person) => (<Link style={{ WebkitTapHighlightColor:"rgba(0,0,0,0)"}}
             href={`/person/${person.id}-${actorName(person.name)}`}
             className='flex flex-col snap-end items-center justify-start h-fit w-fit
