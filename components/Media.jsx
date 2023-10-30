@@ -12,7 +12,7 @@ function Media({ videos,updateVideo ,showVideo}) {
   return (
    
     <div className='lg:w-[90%] sm:w-full flex flex-col items-start'>
-       <h2 className='w-full lg:text-3xl h-fit flex justify-start py-2'>Videos</h2> 
+       <h2 className='w-full lg:text-3xl h-fit flex justify-start py-2 px-2'>Videos</h2> 
       <div className='flex w-full h-fit items-center justify-start
        carousel-scrollbar overflow-x-scroll gap-1'>
         {videos.map(video => (<div
