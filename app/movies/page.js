@@ -1,6 +1,6 @@
 import React from "react";
 import MovieCarousel from "@/components/MovieCarousel";
-import Sidebar from "@/components/Sidebar";
+
 
 export const metadata = {
   title: 'Movies',
@@ -33,10 +33,9 @@ async function Movies() {
   return (
     <div
       className="w-screen min-h-screen relative flex flex-col items-center justify-center
-      lg:pl-[80px] pt-[60px]
+      pt-[60px]
     "
     >
-    <Sidebar />
       {movieGenres.map((genre) => (<MovieCarousel key={genre.id}
         data={movies[genre.name]} title={genre.name} genreId={genre.id} />))
   }

@@ -1,4 +1,3 @@
-import Sidebar from '@/components/Sidebar'
 import TvCarousel from '@/components/TvCarousel'
 import React from 'react'
 export const metadata = {
@@ -35,8 +34,7 @@ async function page() {
 
   return (
     <div className='flex flex-col relative items-center justify-center 
-    lg:pl-[80px] w-screen h-full pt-[60px]'>
-        <Sidebar />
+     w-screen h-full pt-[60px]'>
       {tvShowGenres.map((genre) => (<TvCarousel data={tvShows[genre.name]}
         title={genre.name} key={genre.id} genreId={genre.id} />))}
     </div>

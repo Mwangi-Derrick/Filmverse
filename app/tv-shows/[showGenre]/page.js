@@ -1,5 +1,5 @@
 import ShowsWrapper from '@/components/ShowsWrapper'
-import Sidebar from '@/components/Sidebar'
+
 import React from 'react'
 export async function generateMetadata({ params }) {
   // read route params
@@ -17,8 +17,7 @@ async function page({ params }) {
   const lastIndex = substrings.length-1
   const id = substrings[lastIndex]
   const genreName = substrings.slice(0, lastIndex).join("").replace(/\%26/g," & ")
-  console.log(id)
-  console.log(routeSegement)
+  
   const fetchShowGenre = async (page) => {
     "use server"
     const Key="31893f5365efe0cdf393794446aae7a6"
@@ -28,8 +27,7 @@ async function page({ params }) {
   return data;
   }
   return (
-    <div className='text-white w-full h-full min-h-screen items-center flex flex-col lg:pl-[80px] pb-6 pt-3' >
-      <Sidebar />
+    <div className='text-white w-full h-full min-h-screen items-center flex flex-col pb-6 pt-3' >
       <ShowsWrapper fetchShows={fetchShowGenre} genreType={genreName} />
   </div>
   )
