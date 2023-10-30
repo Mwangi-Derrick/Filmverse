@@ -27,7 +27,7 @@ function Navbar() {
   const tv_shows = path.startsWith('/tv-shows')
   const movies = path.startsWith('/movies')
   const [expandSearchBox, setExpandSearchBox] = useState(false)
-  const [scrollPstn,setScrollY] = useState("")
+  const [scrollPstn,setScrollY] = useState()
   const setSearchboxState = (state) => {
     setExpandSearchBox(state)
   }
@@ -138,7 +138,8 @@ const Searchbox = ({ setState, boxState }) => {
     marginRight: boxState ? 15 : "",
     paddingRight: boxState ? 10 : ""
   }
-  const [width, setWidth] = useState(window.innerWidth);
+  //set the default width state to 1024 pixels to account for desktops and laptops
+  const [width, setWidth] = useState(1024);
   useEffect(() => {
     function trackWidth() {
         setWidth(window.innerWidth)
