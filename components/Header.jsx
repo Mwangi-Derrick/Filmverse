@@ -138,7 +138,7 @@ const Searchbox = ({ setState, boxState }) => {
     marginRight: boxState ? 15 : "",
     paddingRight: boxState ? 10 : ""
   }
-  const [width, setWidth] = useState("");
+  const [width, setWidth] = useState(window.innerWidth);
   useEffect(() => {
     function trackWidth() {
         setWidth(window.innerWidth)
@@ -178,7 +178,7 @@ const Searchbox = ({ setState, boxState }) => {
     lg:rounded-md sm:rounded-full bg-opacity-60 backdrop-blur-sm
     border-neutral-700 lg:mx-[40px] sm:mx-[10px] lg:px-4 relative">
       <button style={{ WebkitTapHighlightColor:"rgba(0,0,0,0)"}}
-        onClick={() => { setState(true) }} disabled={width > 960}
+        onClick={() => { setState(true) }} disabled={width > 1023}
           className="sm:max-lg:w-[40px] sm:max-lg:h-[40px] flex items-center
      sm:max-lg:cursor-pointer justify-center ml-3 outline-none">
           <MagnifyingGlassIcon className="w-5 h-5 text-white stroke-current stroke-1" /></button>
