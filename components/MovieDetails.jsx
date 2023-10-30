@@ -22,7 +22,7 @@ export default function MovieDetails({topLevelDetails,movieRecommendtaions,movie
       filter((person) => person.known_for_department === "Directing").slice(0, 5)
     //remove any duplicate names that may arise using the javaScript Set object
     const uniqueDirectors = [...new Set(directors?.map((person) => person.name))]
-    const Trailer = videos?.results.filter((video) => video.type === "Trailer").slice(0, 1)
+    const Trailer = videos?.results.filter((video) => video.type === "Trailer").slice(0, 1)[0]
    const  initialDateFormat = movieInfo?.release_date
     const dateParts = initialDateFormat.split('-');
     const reversedDate = `${dateParts[1]}/${dateParts[2]}/${dateParts[0]}`
@@ -33,18 +33,28 @@ export default function MovieDetails({topLevelDetails,movieRecommendtaions,movie
   /*add a usestate hook to handle the trailer 
   view functionality whenever a user clicks the watch trailer button*/
   const [YTtrailer, setTrailer] = useState(false);
+  const [youtubeVideo, setYoutubeVideo] = useState(Trailer);
   //add an event handler function to set the trailer usestate to true
   const watchTrailer = () => {
     setTrailer(true)
+    setYoutubeVideo(Trailer)
   }
   const closeTrailer = () => {
     setTrailer(false)
   }
+  const vidoesToBeEmbedded = videos?.results.filter((video) => video.site === "YouTube");
+  //the functions bellow are to be passed as props to the Media component
+  const updateYoutubeVideo = (video) => {
+    setYoutubeVideo(video)
+  }
+  const watchVideo = () => {
+    setTrailer(true)
+}
   return (
           <div 
-      className='flex items-center text-white h-full w-full flex-col
-       justify-start bg-neutral-950 bg-opacity-70 backdrop-blur-sm backdrop-brightness-[60%] 
-       pt-12 pb-[60px] relative 
+      className='flex items-center text-white h-full w-screen flex-col
+       justify-start relative top-0 bg-neutral-950 bg-opacity-70 
+       pt-12 pb-[60px] 
         '>
       <section className='flex lg:flex-row w-[90%] h-fit sm:max-lg:items-center
          justify-around pt-7 sm:max-lg:flex-col sm:max-lg:justify-center'>
@@ -160,10 +170,11 @@ export default function MovieDetails({topLevelDetails,movieRecommendtaions,movie
         </div>
           </section>  
       {movieInfo && (<PeopleCarousel people={credits} />)}
-      {videos.results.length>0(<Media/>)}
+      {videos?.results.length > 0 &&
+        (<Media updateVideo={updateYoutubeVideo} showVideo={watchVideo} videos={vidoesToBeEmbedded} />)}
       {recommendations?.results?.length>0 &&
         <MovieCarousel data={recommendations.results} title={`movies like ${movieInfo.title}`} />} 
-         <TrailerIframe TrailerId={Trailer[0].key} onClose={closeTrailer} YTtrailer={YTtrailer} />
+         <TrailerIframe TrailerId={youtubeVideo?.key} onClose={closeTrailer} YTtrailer={YTtrailer} />
       </div>
   )
 }
