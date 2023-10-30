@@ -53,11 +53,17 @@ export default function MovieDetails({topLevelDetails,movieRecommendtaions,movie
   return (
           <div 
       className='flex items-center text-white h-full w-screen flex-col
-       justify-start relative top-0 bg-neutral-950 bg-opacity-70 
-       pt-12 pb-[60px] 
+       justify-start relative top-0
+        pb-[60px] 
         '>
-      <section className='flex lg:flex-row w-[90%] h-fit sm:max-lg:items-center
-         justify-around pt-7 sm:max-lg:flex-col sm:max-lg:justify-center'>
+      <section style={{
+      backgroundImage:`linear-gradient(to bottom, rgba(9,9,11,0.2),
+rgba(9,9,11,0.6),rgba(9,9,11,0.7),rgba(9,9,11,0.8),rgba(9,9,11,0.9), rgba(9,9,11,1)), 
+url(${img_Url}${topLevelDetails.backdrop_path})`
+      }}
+        className='flex lg:flex-row w-screen h-fit sm:max-lg:items-center
+         justify-around pt-[80px] px-12 pb-12 sm:max-lg:flex-col sm:max-lg:justify-center
+          bg-no-repeat bg-cover bg-center'>
         <div className='flex flex-col lg:w-[25%] sm:max-md:w-full md:max-lg:w-[50%] '>
           <img src={`${img_Url}${movieInfo.poster_path}`}
             loading='lazy'
