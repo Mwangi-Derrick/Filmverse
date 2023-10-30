@@ -22,10 +22,7 @@ async function page({ params }) {
         fetch(`https://api.themoviedb.org/3/movie/${movieId}?api_key=${key}&append_to_response=videos,credits,recommendations`)
      const {videos,credits,recommendations,...details} = await results.json();
   return (
-    <div className="w-screen h-full bg-no-repeat bg-cover bg-center" style={{
-      backgroundImage: `
-         url(${img_Url}${details?.backdrop_path})`
-    }}>
+    <div className="w-screen h-full" >
       <MovieDetails topLevelDetails={details} movieCredits={credits}
         movieRecommendtaions={recommendations} movieVideos={videos} />
       </div>
