@@ -50,9 +50,9 @@ function MovieCarousel({ data,title,genreId }) {
       carouselRef.current.scrollLeft -= carouselRef.current.clientWidth / 2;
     }
   };
-  /* function retuens a boolean depending on the scroll width and the client width of the scroll conatainer.
+  /* The movieCarouselScrollable function returns a boolean depending on the scroll width and the client width of the scroll conatainer.
    This is later used to render the scroll buttons whenever the scroll conatiner
-    is scrollable ie.no hidden overflowing elements*/
+    is scrollable ie.whenever there are hidden overflowing elements*/
   const movieCarouselScrollable = () => {
     if (carouselRef.current) {
       return carouselRef.current.scrollWidth > carouselRef.current.clientWidth

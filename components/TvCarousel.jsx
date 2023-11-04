@@ -50,9 +50,9 @@ function TvCarousel({ data,title,genreId }) {
       TVcarouselRef.current.scrollLeft -= TVcarouselRef.current.clientWidth / 2;
     }
   };
-  /* function retuens a boolean depending on the scroll width and the client width of the scroll conatainer.
+  /* The tvCarouselScrollable function returns a boolean depending on the scroll width and the client width of the scroll conatainer.
    This is later used to render the scroll buttons whenever the scroll conatiner
-    is scrollable ie.no hidden overflowing elements*/
+    is scrollable ie.whenever there are hidden overflowing elements*/
   const tvCarouselScrollable = () => {
     if (TVcarouselRef.current)
     { return TVcarouselRef.current.scrollWidth > TVcarouselRef.current.clientWidth }
