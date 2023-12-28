@@ -13,7 +13,7 @@ function Slider() {
         `https://api.themoviedb.org/3/trending/all/week?api_key=${Key}`
       );
       const data = await results.json();
-      setTrending(data.results.sort(() => Math.random() - 0.5).slice(0, 10));
+      setTrending(data.results.sort(() => Math.random() - 0.5).slice(0,4));
     }
     fetchTrendingAll();
   }, []);
