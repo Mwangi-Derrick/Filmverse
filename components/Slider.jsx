@@ -13,7 +13,7 @@ function Slider() {
         `https://api.themoviedb.org/3/trending/all/week?api_key=${Key}`
       );
       const data = await results.json();
-      setTrending(data.results.sort(() => Math.random() - 0.5).splice(0, 10));
+      setTrending(data.results.sort(() => Math.random() - 0.5).slice(0, 10));
     }
     fetchTrendingAll();
   }, []);
@@ -52,7 +52,7 @@ function Slider() {
     if (show.media_type === "tv") { return `/show/${id}-${formattedTitle}` }
   }
   return (
-    <div className="w-screen h-[450px] bg-transparent relative">
+    <div className="w-screen h-[460px] bg-transparent relative">
       <div  
         className="w-[80px] h-full flex flex-col items-center justify-center absolute left-0
       sm:max-lg:hidden">
