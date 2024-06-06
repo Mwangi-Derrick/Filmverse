@@ -5,30 +5,18 @@ import Image from "next/image";
 import FilmVerse from "public/logo.png";
 import google from "public/googleIcon.svg";
 import Link from "next/link";
-import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "@/services/firebaseSDK";
-import { useRouter } from 'next/navigation'
+
+import { signIn } from 'next-auth/react';
 export default function SignIn() {
   const [eyeslash, setEyeOpen] = useState(true);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const router = useRouter();
-  const signIn = async(email, password)=> {
-    let result = null,
-        error = null;
-    try {
-        result = await signInWithEmailAndPassword(auth, email, password);
-    } catch (e) {
-        error = e;
-    }
-
-    return { result, error };
-}
+  
   return (
-    <form
+    <div
       className="sm:w-[90%] md:max-lg:w-[70%] lg:w-[500px] text-white
     flex flex-col items-center justify-start rounded-md h-fit
-     bg-neutral-800 bg-opacity-70 gap-3 px-2 pb-3"
+     bg-neutral-800 backdrop-filter backdrop-blur-sm bg-opacity-70  gap-3 px-2 pb-3"
     >
       <div
         className="w-full h-fit py-5 flex justify-center items-center
@@ -69,8 +57,9 @@ export default function SignIn() {
           )}
         </i>
       </div>
-      <button
-        className="w-full h-[45px] flex items-center 
+      <button  onClick={() => signIn('credentials', {email, password, redirect: true, callbackUrl: '/'})}
+                disabled={!email || !password}
+        className="disabled:opacity-40 w-full h-[45px] flex items-center 
       justify-center bg-red-400 text-white rounded-md select-none"
       >
         Sign in
@@ -80,7 +69,8 @@ export default function SignIn() {
         <span className="w-fit h-fit">Or</span>
         <span className="flex-[0.49] border-t border-t-solid border-t-slate-400"></span>
       </div>
-      <button className="w-full h-[50px] rounded-md bg-brown-700 flex items-center justify-center gap-1">
+      <button  onClick={() => signIn('google',{ callbackUrl: '/' })}
+        className="w-full h-[50px] rounded-md bg-brown-700 flex items-center justify-center gap-1">
         <Image src={google} width={30} height={30} alt="google icon" /> Sign in
         with Google
       </button>
@@ -94,6 +84,6 @@ export default function SignIn() {
          className="text-red-400" 
           href="forgot-password">Forgot password?</Link>
       </div>
-    </form>
+    </div>
   );
 }
