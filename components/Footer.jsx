@@ -1,5 +1,7 @@
+"use client"
 import Image from 'next/image'
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import React from 'react'
 import {FaGithub,FaInstagram,FaLinkedin} from 'react-icons/fa'
 import { FaXTwitter } from 'react-icons/fa6';
@@ -10,10 +12,11 @@ function Footer() {
     { name: 'about', href: '/about' },
     {name:'watchlist',href:'/watchlist'}
   ]
-  
+  const pathname = usePathname();
   const tmdbLogo = "https://www.themoviedb.org/assets/2/v4/logos/v2/blue_short-8e7b30f73a4020692ccca9c88bafe5dcb6f8a62a4c6bc55cd9ba82bb2cd95f6c.svg";
   return (
-    <footer className='w-screen h-fit flex flex-col items-center justify-center
+    <footer  style={{ display: ["/sign-in", "/sign-up", "/forgot-password"].includes(pathname) ? "none" : "flex" }}
+      className='w-screen h-fit flex flex-col items-center justify-center
     bg-transparent border-t border-solid border-t-slate-500 z-10 bg-opacity-80
      gap-3 py-6 mt-10
      text-slate-300'>
