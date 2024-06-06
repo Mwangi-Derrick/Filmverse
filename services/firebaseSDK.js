@@ -1,7 +1,6 @@
 import { initializeApp,getApp, getApps } from "firebase/app";
 import {getFirestore} from "firebase/firestore"
-import { getStorage } from "firebase/storage"
-import { GoogleAuthProvider,getAuth,signOut } from "firebase/auth";
+import { getAuth } from "firebase/auth";
 const firebaseConfig = {
     apiKey: "AIzaSyDUewB9BzHiQ8nhn_2RGqrnEPuo8_kKxzY",
     authDomain: "filmverse-3bcd7.firebaseapp.com",
@@ -13,8 +12,6 @@ const firebaseConfig = {
 };
 //initialize firebase
 const movie_app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
-const googleProvider = new GoogleAuthProvider();
-const db = getFirestore()
-const auth = getAuth(movie_app)
-const storage = getStorage()
-  export {movie_app,db,storage,auth}
+const db = getFirestore(movie_app);
+const firebaseAuth = getAuth();
+  export {movie_app,db,firebaseAuth}
