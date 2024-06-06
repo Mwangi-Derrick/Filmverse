@@ -90,7 +90,7 @@ const possibleStartsWith = ['movies','topRated','trending','nowPlaying','popular
       and the number of  items in the scroll container*/}
       {((scrollButton === 'left' || scrollButton === 'both') && movieCarouselScrollable()) && (
         <button onClick={scrollLeft} className='w-[60px] h-[60px] bg-white
-          items-center sm:hidden lg:group-hover:flex
+          items-center sm:hidden lg:group-hover:flex z-10
          justify-center absolute rounded-[50%] top-[35%] left-[-30px]
          cursor-pointer '>
           <ChevronLeftIcon className='w-7 h-7 font-extrabold stroke-current stroke-1 text-black' />
@@ -98,7 +98,7 @@ const possibleStartsWith = ['movies','topRated','trending','nowPlaying','popular
       )}
       {((scrollButton === 'right' || scrollButton === 'both') && movieCarouselScrollable() ) && (
         <button onClick={scrollRight} className='w-[60px] h-[60px] bg-white
-        absolute  top-[35%] right-[-30px] sm:hidden lg:group-hover:flex 
+        absolute  top-[35%] right-[-30px] sm:hidden lg:group-hover:flex z-10
          items-center rounded-[50%] justify-center cursor-pointer '>
           <ChevronRightIcon className='w-7 h-7 font-extrabold stroke-current stroke-1  text-black' />
         </button>
