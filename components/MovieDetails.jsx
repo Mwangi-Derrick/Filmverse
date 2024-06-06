@@ -1,15 +1,24 @@
 "use client"
 import React, { useEffect, useState } from 'react'
-import { PlayCircleIcon } from "@heroicons/react/24/solid";
+import { PlayCircleIcon,PlusIcon,CheckIcon } from "@heroicons/react/24/solid";
 import TrailerIframe from "@/components/TrailerIframe";
 import PeopleCarousel from './PeopleCarousel';
 import MovieCarousel from './MovieCarousel';
+import AlertBox from './AlertBox';
 import Media from './Media';
+import { doc, setDoc,updateDoc, arrayUnion,getDoc, arrayRemove } from "firebase/firestore"; 
+import { useSession } from 'next-auth/react';
+import {db} from "../services/firebaseSDK";
 export default function MovieDetails({topLevelDetails,movieRecommendtaions,movieCredits,movieVideos}) {
   const [movieInfo, setInfo] = useState(topLevelDetails)
   const [credits, setCredits] = useState(movieCredits)
   const [videos, setVideos] = useState(movieVideos)
-  const[recommendations,setRecommedations]= useState(movieRecommendtaions)
+  const [recommendations, setRecommedations] = useState(movieRecommendtaions)
+  const [alerts, setAlerts] = useState([]);
+  const session = useSession()
+  const handleCloseAlert = (id) => {
+    setAlerts(alerts.filter(alert => alert.id !== id));
+  };
     const img_Url = "https://image.tmdb.org/t/p/w500/"
   useEffect(() => {
     setInfo(topLevelDetails)
@@ -49,7 +58,77 @@ export default function MovieDetails({topLevelDetails,movieRecommendtaions,movie
   }
   const watchVideo = () => {
     setTrailer(true)
-}
+  }
+
+  const [inWatchlist, setInWatchlist] = useState(false);
+  useEffect(() => {
+    async function checkIfMovieIsInWatchlist() {
+
+      if (session && session?.data?.user) {
+        const userEmail = session.data.user.email;// Extract user email
+        const watchlistRef = doc(db, "watchlist", userEmail);// Create watchlist doc reference
+         // Get the movies document within the user's watchlist (assuming movie IDs are stored in an array)
+         const watchlistSnap = await getDoc(watchlistRef);
+         console.log(watchlistSnap)
+         if (watchlistSnap.exists()) {
+           const movies = watchlistSnap.data()?.watchLater?.filter(item=>item.type==="movie")|| []; // Extract movies from watchlist
+           // Check if the desired movie ID exists in the watchlist array
+           const isInWatchlist = movies.some(movie => movie.id === `${movieInfo.id}`);
+           // Replace movieId with your actual movie ID
+           setInWatchlist(isInWatchlist);
+           console.log("Movie is in watchlist:", isInWatchlist);
+         } else {
+           console.log("Watchlist document doesn't exist");
+         }
+       } else {
+         console.warn("User not authenticated");
+       }
+     }
+   
+     checkIfMovieIsInWatchlist();
+   }, [session?.data?.user,movieInfo.id]);
+      
+   const toogleWatchlist = async () => {
+    if (session && session?.data?.user) {
+      try {
+        const userId = session?.data.user.email
+        const movieData = {
+          id: `${movieInfo.id}`,
+          poster_path: `${movieInfo.poster_path}}`,
+          title: `${movieInfo.title}`,
+          type: "movie"
+        }
+        const movieDocRef = doc(db, "watchlist", `${userId}`)
+        const docSnap = await getDoc(movieDocRef);
+        if (docSnap.exists()) {
+          await updateDoc(movieDocRef, {
+            watchLater: inWatchlist ? arrayRemove(movieData) : arrayUnion(movieData)
+          })
+        }
+        else {
+          await setDoc(movieDocRef, {
+            watchLater: [
+              movieData
+            ]
+          });
+        }
+        setInWatchlist((prev) => !prev);
+      } catch (e) {
+        console.error("Error adding document: ", e);
+      }
+     }
+    else {
+      const id = Date.now();
+      const newAlert = { id, message: 'Please login to add to watchlist' };
+      setAlerts(prevAlerts => [...prevAlerts, newAlert]);
+
+      // Automatically remove the alert after 5 seconds
+      setTimeout(() => {
+        setAlerts(prevAlerts => prevAlerts.filter(alert => alert.id !== id));
+      }, 5000); // 5000 milliseconds = 5 seconds
+     }
+  }
+ 
   return (
           <div 
       className='flex items-center text-white h-full w-screen flex-col
@@ -70,12 +149,26 @@ url(${img_Url}${topLevelDetails.backdrop_path})`
             width='300px' height='400px' alt=''
             className='w-full aspect-[171/200] rounded-md' />
            <button onClick={watchTrailer}
-            className='w-full h-[50px] hover:bg-neutral-900 text-neutral-900
+            className='w-full h-[50px] hover:bg-neutral-900 text-slate-200
               text-lg font-semibold flex items-center justify-center
             hover:text-red-500 transition-colors duration-700
             my-[20px] rounded-md
             sm:max-lg:h-[40px]
            bg-red-500'><PlayCircleIcon className="h-5 w-5 mx-1" /> Play Trailer</button>
+          <button
+            onClick={toogleWatchlist} className={`w-full h-[50px] hover:border-red-500 border
+          ${inWatchlist ? "border-red-500 text-red-500" : "border-white text-white "}
+              text-lg font-semibold flex items-center justify-center gap-1
+            hover:text-red-500 transition-colors duration-700
+             rounded-md 
+            sm:max-lg:h-[40px]
+           bg-transparent`}>{!inWatchlist?<>
+            <PlusIcon className='w-5 h-5'/>
+              <span>Add To Watchlist</span></> : <>
+                <CheckIcon className='w-5 h-5' />
+                <span>In Watchlist</span>
+            </>}
+          </button>
         </div>
         <div className='flex flex-col lg:w-[70%] sm:max-lg:items-start sm:max-lg:w-full'>
           <div className='flex items-start flex-col pb-5'>
@@ -180,7 +273,18 @@ url(${img_Url}${topLevelDetails.backdrop_path})`
         (<Media updateVideo={updateYoutubeVideo} showVideo={watchVideo} videos={vidoesToBeEmbedded} />)}
       {recommendations?.results?.length>0 &&
         <MovieCarousel data={recommendations.results} title={`movies like ${movieInfo.title}`} />} 
-         <TrailerIframe TrailerId={youtubeVideo?.key} onClose={closeTrailer} YTtrailer={YTtrailer} />
+      <TrailerIframe TrailerId={youtubeVideo?.key} onClose={closeTrailer} YTtrailer={YTtrailer} />
+      <div className="fixed inset-0 h-screen w-full flex flex-col items-end justify-end gap-2p-4 pointer-events-none">
+        {alerts.map((alert,index) => (
+          <AlertBox
+            key={alert.id}
+            id={alert.id}
+            index={index}
+            message={alert.message}
+            onClose={() => { handleCloseAlert }}
+          />
+        ))}
+      </div>
       </div>
   )
 }

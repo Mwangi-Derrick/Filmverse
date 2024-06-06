@@ -2,10 +2,14 @@
 import Image from 'next/image'
 import React, { Suspense, useCallback, useEffect, useState } from 'react'
 import TvCarousel from './TvCarousel';
-import { PlayIcon } from '@heroicons/react/24/solid';
+import { CheckIcon, PlayIcon, PlusIcon } from '@heroicons/react/24/solid';
 import TrailerIframe from './TrailerIframe';
+import AlertBox from './AlertBox';
 import Media from './Media';
 import PeopleCarousel from './PeopleCarousel';
+import { doc, setDoc, updateDoc, arrayUnion, getDoc, arrayRemove } from "firebase/firestore"; 
+import { useSession } from 'next-auth/react';
+import { db } from '@/services/firebaseSDK';
 
 function TvshowDetails({ seriesInfo, seasons, fetchEpisodes,suggestedShows,videos,showCredits,Tvratings }) {
     const baseImageUrl = 'https://image.tmdb.org/t/p/w780/';
@@ -19,6 +23,7 @@ function TvshowDetails({ seriesInfo, seasons, fetchEpisodes,suggestedShows,video
     const [ratings, setRatings] = useState(Tvratings)
     //state to store video embedd
     const [videoEmbedd, setVideoEmbedd] = useState(trailer);
+    const [alerts, setAlerts] = useState([]);
     const updateVideoEmbedd = (video)=> {
         setVideoEmbedd(video);
     }
@@ -47,6 +52,74 @@ function TvshowDetails({ seriesInfo, seasons, fetchEpisodes,suggestedShows,video
         {index > 0 ? "," : ""}
         {genre.name}
     </p>))
+    const [inWatchlist, setInWatchlist] = useState(false)
+    const session = useSession()
+    const handleCloseAlert = (id) => {
+        setAlerts(alerts.filter(alert => alert.id !== id));
+      };
+    useEffect(() => {
+      async function checkIfShowIsInWatchlist() {
+            if (session && session?.data?.user) {
+                const userEmail = session.data.user.email;// Extract user email
+                const watchlistRef = doc(db, "watchlist", userEmail);// Create watchlist doc reference
+                // Get the shows document within the user's watchlist (assuming show IDs are stored in an array)
+                const watchlistSnap = await getDoc(watchlistRef);
+                console.log(watchlistSnap)
+                if (watchlistSnap.exists()) {
+                    const shows = watchlistSnap.data()?.watchLater?.filter(item => item.type === "tv") || []; // Extract shows from watchlist
+                    console.log(shows)
+                    // Check if the desired show ID exists in the watchlist array
+                    const isInWatchlist = shows.some(show => show.id === `${details.id}`);
+                    // Replace movieId with your actual show ID
+                    setInWatchlist(isInWatchlist);
+                    console.log("Movie is in watchlist:", isInWatchlist);
+                }
+            }
+            else {
+                console.warn("User not authenticated");
+            }
+        }
+        checkIfShowIsInWatchlist();
+    }, [session?.data?.user, inWatchlist])
+    const toogleWatchlist = async () => {
+        if (session && session?.data?.user) {
+          try {
+            const userId = session?.data.user.email
+            const tvShowData = {
+              id: `${details.id}`,
+              poster_path: `${details.poster_path}}`,
+              name: `${details.name}`,
+              type: "tv"
+            }
+            const tvShowDocRef = doc(db, "watchlist", `${userId}`)
+            const docSnap = await getDoc(tvShowDocRef);
+            if (docSnap.exists()) {
+              await updateDoc(tvShowDocRef, {
+                watchLater: inWatchlist ? arrayRemove(tvShowData) : arrayUnion(tvShowData)
+              })
+            }
+            else {
+              await setDoc(tvShowDocRef, {
+                watchLater: [
+                  tvShowData
+                ]
+              });
+            }
+            setInWatchlist((prev) => !prev);
+          } catch (e) {
+            console.error("Error adding document: ", e);
+          }
+        }
+        else {
+            const id = Date.now();
+            const newAlert = { id, message: 'Please login to add to watchlist' };
+            setAlerts(prevAlerts => [...prevAlerts, newAlert]);
+             // Automatically remove the alert after 5 seconds
+      setTimeout(() => {
+        setAlerts(prevAlerts => prevAlerts.filter(alert => alert.id !== id));
+      }, 5000); // 5000 milliseconds = 5 seconds
+        }
+      }
   return (
       <div className='text-white h-full w-screen flex flex-col
     items-center relative top-[-60px]
@@ -80,10 +153,21 @@ function TvshowDetails({ seriesInfo, seasons, fetchEpisodes,suggestedShows,video
                               <span>|</span>
                           {genres}
                       </div>
+                      <div className='w-full h-fit flex flex-row items-center justify-start gap-2 mt-3'>
                       <button onClick={watchTrailer}
-                        className='w-[120px] h-7 mt-3 cursor-pointer bg-red-500 flex
-                       items-center justify-center rounded-md lg:text-base sm:text-sm'>
-                          <PlayIcon className='h-3 w-3 mr-1' />Play Trailer</button>
+                        className='w-[120px] h-7 cursor-pointer bg-red-500 flex
+                       items-center justify-center rounded-full lg:text-base sm:text-sm'>
+                              <PlayIcon className='h-3 w-3 mr-1' />Play Trailer</button>
+                          <button onClick={toogleWatchlist}
+                              className={`w-fit flex flex-row items-center justify-center rounded-full 
+                              transiton-all ease-in-out duration-1000
+                          px-5 h-7 cursor-pointer hover:text-red-500 hover:border-red-500 gap-1
+                           border border-solid ${inWatchlist ? "border-red-500 text-red-500" : "border-white"}`}>
+                              {!inWatchlist ? <><PlusIcon className='w-5 h-5' /><p>Add to Watchlist</p></> :
+                                  <><CheckIcon className='w-5 h-5'/><p>In Watchlist</p></>}
+                           </button>
+                      </div>
+                     
                       <p className='sm:text-sm lg:text-base
                           text-slate-200 font-light pt-3 italic'>{details?.tagline}</p>
                   </div>
@@ -115,6 +199,17 @@ function TvshowDetails({ seriesInfo, seasons, fetchEpisodes,suggestedShows,video
           <Media updateVideo={updateVideoEmbedd} showVideo={watchVideo} videos={TvShowVideos} />
           <TvCarousel data={recommedations} title='you may also like...' />
           <TrailerIframe TrailerId={videoEmbedd?.key} YTtrailer={showTrailer} onClose={onCloseTrailer} />
+          <div className="fixed inset-0 h-screen w-full flex flex-col items-end justify-end gap-2p-4 pointer-events-none">
+{alerts.map((alert,index) => (
+  <AlertBox
+    key={alert.id}
+    id={alert.id}
+    index={index}
+    message={alert.message}
+    onClose={() => { handleCloseAlert }}
+  />
+))}
+</div>
     </div>
   )
 }
@@ -245,18 +340,5 @@ function InformationSection({ credits,genreNames,creators }) {
             </div>
         </section>
     )
-}
-function LoadingSkeleton() {
-    const array = [...new Array(7)]
-    return (<div className='h-fit flex-col w-[80%] mt-3 divide-y
-     divide-slate-400 divide-solid rounded-md '>
-        {array.map((item) => (<div className='flex flex-row w-full h-[90px] pl-2 items-center'>
-            <div className='w-[100px] h-[70px] animate-pulse bg-gray-600 rounded-md'></div>
-            <div className='flex flex-col flex-1 items-start justify-between pl-2 gap-2'>
-                <p className='w-1/3 h-2 rounded-full animate-pulse bg-gray-500'></p>
-                <p className='w-[20%] h-2 rounded-full animate-pulse bg-gray-500'></p>
-            </div>
-        </div>))}
-    </div>)
 }
 export default TvshowDetails;
