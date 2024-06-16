@@ -177,13 +177,6 @@ function Navbar() {
 const Searchbox = ({ setState, boxState }) => {
   
   let [inputValue, setInput] = useState("");
-  const handleInput = (e) => {
-    setInput(e.target.value);
-  };
-  
-  const clearInput = () => {
-    setInput("");
-  };
   const closeIcon = inputValue !== "";
   const searchBoxWidth = {
     width: boxState ? "85vw" : "",
@@ -195,34 +188,45 @@ const Searchbox = ({ setState, boxState }) => {
   const [width, setWidth] = useState(1024);
   useEffect(() => {
     function trackWidth() {
-        setWidth(window.innerWidth)
-        if(width > 960){setState(false)}
+      setWidth(window.innerWidth)
+      if (width > 960) { setState(false) }
     }
-    window.addEventListener('resize',trackWidth )
-    return ()=> {window.removeEventListener('resize',trackWidth)}
+    window.addEventListener('resize', trackWidth)
+    return () => { window.removeEventListener('resize', trackWidth) }
   })
-  const [searchData,setSearchResults] = useState(null)
-  useEffect(() => {
-    async function searchData() {
-      const delay = (ms) => { new Promise((resolve) => { setTimeout(resolve, ms) }) }
-      const key = "31893f5365efe0cdf393794446aae7a6"
-      delay(2000)
-      const results = await fetch(`https://api.themoviedb.org/3/search/multi?api_key=${key}&query=${inputValue}`);
-      const data = await results.json();
-      const searchList = data.results;
-      setSearchResults(searchList.filter((result)=>result.media_type !== "person"))
-      return ()=>{setSearchResults(null)}
+  const [searchData, setSearchResults] = useState([])
+
+  async function fetchSearchResults(input) {
+    const delay = (ms) => { new Promise((resolve) => { setTimeout(resolve, ms) }) }
+    const key = "31893f5365efe0cdf393794446aae7a6"
+    delay(2000)
+    const results = await fetch(`https://api.themoviedb.org/3/search/multi?api_key=${key}&query=${input}`);
+    const data = await results.json();
+    const searchList = data.results;
+    const filteredSearch = searchList.filter((result) => result.media_type !== "person")
+    return setSearchResults(filteredSearch) 
+  }
+
+  const handleInput = async(e) => {
+    setInput(e.target.value);
+  await fetchSearchResults(e.target.value)
+  };
+  const handleSearchOnFocus = async (e) => {
+    if (e.target !== "") {
+     await fetchSearchResults(e.target.value)
     }
-    searchData();
-  }, [inputValue])
+  }
+  const clearInput = () => {
+    setInput("");
+  };
   const searchResultsRef = useRef(null)
   const searchBoxRef = useRef(null)
   useEffect(() => {
     const handleSearchList = (e) => {
       if (searchResultsRef.current &&
-        e.target !== searchResultsRef.current &&
-        e.target !== searchBoxRef.current)
-      { searchResultsRef.current.style.display = "none" }
+      !searchResultsRef.current.contains(e.target) &&
+        !searchBoxRef.current.contains(e.target))
+      { setSearchResults([]) }
     }
     window.addEventListener("click", handleSearchList)
     return()=>{window.removeEventListener("click",handleSearchList)}
@@ -239,7 +243,8 @@ const Searchbox = ({ setState, boxState }) => {
      sm:max-lg:cursor-pointer justify-center ml-3 outline-none">
           <MagnifyingGlassIcon className="w-5 h-5 text-white stroke-current stroke-1" /></button>
         <input
-          onChange={handleInput}
+        onChange={handleInput}
+        onFocus={handleSearchOnFocus}
             value={inputValue}
           type="text"
           placeholder="Search for movies or Tv shows"
@@ -252,7 +257,7 @@ const Searchbox = ({ setState, boxState }) => {
           />
         )}
       </section>
-    {searchData && (<ul ref={searchResultsRef}
+    {searchData.length>0 && (<ul ref={searchResultsRef}
       style={{ display: inputValue === "" ? "none" : "" }}
       className="w-[450px] bg-neutral-900 
       absolute top-[95%] bg-opacity-90 divide-y divide-solid divide-zinc-950 
@@ -261,7 +266,7 @@ const Searchbox = ({ setState, boxState }) => {
       sm:max-lg:w-[100vw] sm:max-lg:left-0 sm:max-lg:h-screen
       lg:h-[400px]
     ">
-      { searchData && searchData.map((list, index) => (
+      { searchData.length>0 && searchData.map((list, index) => (
         <SearchResults key={index}
           textHighlight={inputValue}
           clear={setInput}
@@ -272,7 +277,7 @@ const Searchbox = ({ setState, boxState }) => {
           id={list.id} />
       )
       )}
-      {searchData && searchData.length === 0 && (<li className="w-full h-[50px]
+      {searchData &&  searchData.length === 0 && (<li className="w-full h-[50px]
        uppercase flex justify-center text-base text-white font-semibold items-center">
         can't find {`"${inputValue}"`}
       </li>)}
