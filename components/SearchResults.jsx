@@ -36,7 +36,8 @@ function SearchResults({media,id,name,imagePath,releaseDate,clear,textHighlight}
               <div className='w-[60px] h-full mr-2'>
                   <img src={`${base_url}${imagePath}`} loading='lazy' width='60px' height='60px'/></div>
               <div className='flex-col items-center justify-center flex-1 h-full'>
-                  <h4 className='text-xl font-semibold text-white'>{styledSubstring(name,textHighlight) }</h4>
+                <h4 className='text-xl font-semibold text-white  capitalize'>
+                      {name.length>33? styledSubstring(name.slice(0,33).concat("..."), textHighlight) : styledSubstring(name, textHighlight)}</h4>
                   <p className='text-sm font-medium text-slate-300 capitalize'>
                       {`${media === "tv" ? "TV show" : media}.${year}`}</p>
               </div>
