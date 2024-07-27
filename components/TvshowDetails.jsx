@@ -1,5 +1,4 @@
 "use client"
-import Image from 'next/image'
 import React, { Suspense, useCallback, useEffect, useState } from 'react'
 import TvCarousel from './TvCarousel';
 import { CheckIcon, PlayIcon, PlusIcon } from '@heroicons/react/24/solid';
@@ -134,7 +133,7 @@ function TvshowDetails({ seriesInfo, seasons, fetchEpisodes,suggestedShows,video
            url(${baseImageUrl}${details.backdrop_path})`
       }}>
               <div className='lg:w-[15vw] lg:h-[60vh] sm:max-lg:w-full lg:mr-7'>
-                  <Image layout='responsive' className='rounded-md sm:max-lg:w-full
+                  <img layout='responsive' className='rounded-md sm:max-lg:w-full
                    sm:max-lg:h-[30px]'
                       src={`${baseImageUrl}${details.poster_path}`} width={1000} height={1920} alt='' />
               </div>
