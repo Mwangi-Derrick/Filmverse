@@ -58,7 +58,6 @@ function Navbar() {
     else { return { backgroundColor: "#0c0a09" } }
   }
   const session = useSession();
-  console.log(session);
   const profileDropDownRef = useRef(null);
   const profileRef = useRef(null);
   
@@ -158,11 +157,12 @@ function Navbar() {
                   <ul  ref={profileDropDownRef}
                     style={profileDropDownVisible===true ? { display: "block" } : { display: "none" }}
                     className="w-[200px] text-sm h-fit rounded-md flex-col
-                     items-center p-4 absolute bottom-[-120px] right-7 bg-slate-800
+                     items-center p-2 absolute bottom-[-120px] right-7 bg-slate-800
                       hidden text-white text-[10px]">
-    <li className="flex items-center justify-start p-3 w-fit gap-2">
+    <li className="flex items-center justify-start p-4 w-full gap-2 rounded-md hover:bg-slate-700">
       <Cog6ToothIcon className="w-6 h-6" /><span>settings</span></li>
-                    <li onClick={handleSignOut} className="flex items-center justify-start p-3 h-fit w-full gap-2">
+                    <li onClick={handleSignOut}
+                      className="flex items-center justify-start p-4 h-fit w-full gap-2 rounded-md hover:bg-slate-700">
       <ArrowRightOnRectangleIcon className="w-6 h-6" /><span>sign out</span></li>
   </ul>
                 </div>
