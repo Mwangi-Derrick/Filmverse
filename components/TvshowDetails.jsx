@@ -71,7 +71,7 @@ function TvshowDetails({ seriesInfo, seasons, fetchEpisodes,suggestedShows,video
                     const isInWatchlist = shows.some(show => show.id === `${details.id}`);
                     // Replace movieId with your actual show ID
                     setInWatchlist(isInWatchlist);
-                    console.log("Movie is in watchlist:", isInWatchlist);
+                    console.log("Show is in watchlist:", isInWatchlist);
                 }
             }
             else {
@@ -132,9 +132,9 @@ function TvshowDetails({ seriesInfo, seasons, fetchEpisodes,suggestedShows,video
           rgba(0,0,0,0.2), rgba(0,0,0,0.9)), 
            url(${baseImageUrl}${details.backdrop_path})`
       }}>
-              <div className='lg:w-[15vw] lg:h-[60vh] sm:max-lg:w-full lg:mr-7'>
+              <div className='lg:w-[15vw] lg:h-[60vh] aspect-[16/25]  sm:max-lg:w-full lg:mr-7'>
                   <img layout='responsive' className='rounded-md sm:max-lg:w-full
-                   sm:max-lg:h-[30px]'
+                   sm:max-lg:h-full'
                       src={`${baseImageUrl}${details.poster_path}`} width={1000} height={1920} alt='' />
               </div>
               <article className='flex flex-col justify-start h-full items-start w-full sm:max-lg:pt-3'>

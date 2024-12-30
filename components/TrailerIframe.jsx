@@ -3,10 +3,11 @@ import { XMarkIcon} from '@heroicons/react/24/outline';
 function TrailerIframe({TrailerId,YTtrailer,onClose}) {
     
     return (
-        <>{YTtrailer &&(
+        <>{YTtrailer && (
+        <div className='fixed top-0 left-0 w-screen h-screen bg-black bg-opacity-40 z-[150]'>
             <div className="flex flex-col 
-            w-fit h-fit bg-black fixed rounded-[15px]
-            top-[5%] z-[150]" >
+            w-fit h-fit bg-black fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 rounded-[15px]
+            " >
                 <div className='h-[50px] w-full flex  px-5 items-center justify-between'>
                     <p className='text-xl font-light'>Trailer</p>
                     <i onClick={onClose}
@@ -23,7 +24,8 @@ function TrailerIframe({TrailerId,YTtrailer,onClose}) {
                         allow="autoplay; encrypted-media"
                         allowfullscreen
                 ></iframe></div>
-            </div>
+                </div>
+                </div>
         )
         }
     </>
