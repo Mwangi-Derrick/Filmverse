@@ -162,7 +162,7 @@ function TvshowDetails({ seriesInfo, seasons, fetchEpisodes,suggestedShows,video
                               transiton-all ease-in-out duration-1000
                           px-5 h-7 cursor-pointer hover:text-red-500 hover:border-red-500 gap-1
                            border border-solid ${inWatchlist ? "border-red-500 text-red-500" : "border-white"}`}>
-                              {!inWatchlist ? <><PlusIcon className='w-5 h-5' /><p>Add to Watchlist</p></> :
+                              {!inWatchlist ? <><PlusIcon className='w-5 h-5' /><p className='sm:text-xs'>Add to Watchlist</p></> :
                                   <><CheckIcon className='w-5 h-5'/><p>In Watchlist</p></>}
                            </button>
                       </div>

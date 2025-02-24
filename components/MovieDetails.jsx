@@ -156,7 +156,7 @@ url(${img_Url}${topLevelDetails.backdrop_path})`
             sm:max-lg:h-[40px]
            bg-red-500'><PlayCircleIcon className="h-5 w-5 mx-1" /> Play Trailer</button>
           <button
-            onClick={toogleWatchlist} className={`w-full h-[50px] hover:border-red-500 border
+            onClick={toogleWatchlist} className={`w-full h-[50px] mb-1 hover:border-red-500 border
           ${inWatchlist ? "border-red-500 text-red-500" : "border-white text-white "}
               text-lg font-semibold flex items-center justify-center gap-1
             hover:text-red-500 transition-colors duration-700
