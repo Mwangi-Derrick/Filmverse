@@ -86,7 +86,7 @@ export default function MovieDetails({topLevelDetails,movieRecommendtaions,movie
      }
    
      checkIfMovieIsInWatchlist();
-   }, [session?.data?.user,movieInfo.id]);
+   }, [session?.data?.user,movieInfo.id,inWatchlist]);
       
    const toogleWatchlist = async () => {
     if (session && session?.data?.user) {
